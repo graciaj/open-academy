@@ -1,6 +1,6 @@
 /**
  * @author Lehi Gracia
- * @copyright 2014 Round Rock Labs
+ * @copyright 2014 Lehi Gracia
  */
 
 
