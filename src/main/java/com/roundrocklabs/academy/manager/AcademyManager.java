@@ -1,3 +1,9 @@
+/**
+ * @author Lehi Gracia
+ * @copyright 2014 Round Rock Labs
+ */
+
+
 package com.roundrocklabs.academy.manager;
 
 import java.util.List;

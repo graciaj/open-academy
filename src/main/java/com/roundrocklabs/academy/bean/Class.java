@@ -1,3 +1,8 @@
+/**
+ * @author Lehi Gracia
+ * @copyright 2014 Round Rock Labs
+ */
+
 package com.roundrocklabs.academy.bean;
 
 import java.sql.Date;

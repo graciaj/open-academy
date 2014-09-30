@@ -1,3 +1,7 @@
+/**
+ * 
+ */
+
 package com.roundrocklabs.academy.utils;
 
 import org.hibernate.SessionFactory;
@@ -12,12 +16,6 @@ public class HibernateUtil {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
             return new Configuration().configure().buildSessionFactory();
-        	
-//        	Configuration configuration = new Configuration().configure();
-//        	StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-//        		.applySettings(configuration.getProperties());
-//        	
-//        	return configuration.buildSessionFactory(builder.build());
              
         }
         catch (Throwable ex) {
