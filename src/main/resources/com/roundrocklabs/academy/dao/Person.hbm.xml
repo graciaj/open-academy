@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 26, 2014 4:14:15 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="Person" table="person" schema="public">
+        <composite-id name="id" class="PersonId">
+            <key-property name="personId" type="int">
+                <column name="person_id" />
+            </key-property>
+            <key-property name="firstName" type="string">
+                <column name="first_name" />
+            </key-property>
+            <key-property name="address1" type="string">
+                <column name="address1" />
+            </key-property>
+            <key-property name="address2" type="string">
+                <column name="address2" />
+            </key-property>
+            <key-property name="city" type="string">
+                <column name="city" />
+            </key-property>
+            <key-property name="state" type="string">
+                <column name="state" />
+            </key-property>
+            <key-property name="zip" type="string">
+                <column name="zip" />
+            </key-property>
+            <key-property name="phone1" type="string">
+                <column name="phone1" />
+            </key-property>
+            <key-property name="phone2" type="string">
+                <column name="phone2" />
+            </key-property>
+            <key-property name="email" type="string">
+                <column name="email" />
+            </key-property>
+            <key-property name="username" type="string">
+                <column name="username" />
+            </key-property>
+            <key-property name="password" type="string">
+                <column name="password" />
+            </key-property>
+            <key-many-to-one name="academy" class="Academy">
+                <column name="academy_id" />
+            </key-many-to-one>
+            <key-property name="lastName" type="string">
+                <column name="last_name" />
+            </key-property>
+            <key-property name="middleName" type="string">
+                <column name="middle_name" />
+            </key-property>
+            <key-property name="lastName2" type="string">
+                <column name="last_name_2" />
+            </key-property>
+        </composite-id>
+        <set name="students" inverse="true">
+            <key>
+                <column name="person_id" />
+            </key>
+            <one-to-many class="Student" />
+        </set>
+        <set name="parents" inverse="true">
+            <key>
+                <column name="person_id" />
+            </key>
+            <one-to-many class="Parent" />
+        </set>
+        <set name="staffs" inverse="true">
+            <key>
+                <column name="person_id" />
+            </key>
+            <one-to-many class="Staff" />
+        </set>
+        <set name="teachers" inverse="true">
+            <key>
+                <column name="person_id" />
+            </key>
+            <one-to-many class="Teacher" />
+        </set>
+    </class>
+</hibernate-mapping>

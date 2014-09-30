@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 26, 2014 4:14:15 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="Room" table="room" schema="public">
+        <composite-id name="id" class="RoomId">
+            <key-property name="roomId" type="int">
+                <column name="room_id" />
+            </key-property>
+            <key-property name="name" type="string">
+                <column name="name" />
+            </key-property>
+            <key-property name="description" type="string">
+                <column name="description" />
+            </key-property>
+            <key-property name="size" type="java.lang.Integer">
+                <column name="size" />
+            </key-property>
+            <key-many-to-one name="site" class="Site">
+                <column name="site_id" />
+            </key-many-to-one>
+            <key-many-to-one name="academy" class="Academy">
+                <column name="academy_id" />
+            </key-many-to-one>
+            <key-property name="startDate" type="date">
+                <column name="start_date" length="13" />
+            </key-property>
+            <key-property name="retireDate" type="date">
+                <column name="retire_date" length="13" />
+            </key-property>
+        </composite-id>
+        <set name="classRooms" inverse="true">
+            <key>
+                <column name="room_id" />
+            </key>
+            <one-to-many class="ClassRoom" />
+        </set>
+    </class>
+</hibernate-mapping>

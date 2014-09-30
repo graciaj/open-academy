@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.roundrocklabs.academy.bean">
+
+	<class name="Site" table="site">
+		<id name="site_id" column="site_id">
+			<generator class="native"/>
+		</id>
+	
+		<property name="academy_id" type="integer" column="academy_id"/><!-- one-to-one -->
+		<property name="name" type="string" column="name"/>
+		<property name="address1" type="string" column="address1"/>
+		<property name="address2" type="string" column="address2"/>
+		<property name="city" type="string" column="city"/>
+		<property name="state" type="string" column="state"/>
+		<property name="zip" type="string" column="zip"/>
+	</class>
+	
+</hibernate-mapping>

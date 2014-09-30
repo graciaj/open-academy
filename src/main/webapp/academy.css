@@ -1,0 +1,35 @@
+@CHARSET "ISO-8859-1";
+
+*{margin: 0; padding: 0; }
+body{
+	width: 962px;
+	background-color: white;
+	margin: 15px auto;
+	border: 1px solid black;
+}
+
+h1{
+	padding: 10px;	
+}
+
+header{
+	border-bottom: 2px solid #ef9c00;
+}
+
+section{
+	height: 400px;
+	width: 60%;
+	border-right: 2px solid #ef9c00;
+	float: left;
+}
+
+aside{
+	width: 20%;
+	float: left;
+	border-left: 2px solid #ef0c00;
+}
+
+footer{
+	clear: both;
+	border-top: 2px solid #ef9c00;
+}

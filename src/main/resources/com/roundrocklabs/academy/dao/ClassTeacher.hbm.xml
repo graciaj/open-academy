@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 26, 2014 4:14:14 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="ClassTeacher" table="class_teacher" schema="public">
+        <composite-id name="id" class="ClassTeacherId">
+            <key-many-to-one name="class" class="Class">
+                <column name="class_id" />
+            </key-many-to-one>
+            <key-many-to-one name="teacher" class="Teacher">
+                <column name="teacher_id" />
+            </key-many-to-one>
+            <key-property name="dateStart" type="date">
+                <column name="date_start" length="13" />
+            </key-property>
+            <key-property name="dateEnd" type="date">
+                <column name="date_end" length="13" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

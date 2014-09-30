@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.roundrocklabs.academy.bean">
+
+	<class name="Class" table="class">
+		<id name="class_id" column="class_id">
+			<generator class="native"/>
+		</id>
+	
+		<property name="name" type="string" column="name"/>
+		<property name="description" type="string" column="description"/>
+		<property name="academy_id" type="integer" column="academy_id"/><!-- one-to-one -->
+		<property name="start_date" type="date" column="start_date"/>
+		<property name="retire_date" type="date" column="retire_date"/>
+	</class>
+	
+</hibernate-mapping>
