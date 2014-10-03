@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="com.roundrocklabs.academy.bean">
+<hibernate-mapping package="com.roundrocklabs.academy.model">
 
     <class name="Academy" table="academy">
         <id name="academy_id" column="academy_id">

@@ -30,20 +30,8 @@
 
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
-
-        <mapping resource="com/roundrocklabs/academy/hbm/Academy.hbm.xml"/>
-        <mapping resource="com/roundrocklabs/academy/hbm/Class.hbm.xml"/>
-        <mapping resource="com/roundrocklabs/academy/hbm/Site.hbm2.xml"/>
-        <!--  mapping resource="com/roundrocklabs/academy/hbm/ClassRoom.hbm.xml"/>
-        <mapping resource="com/roundrocklabs/academy/hbm/ClassStudent.hbm.xml"/>
-        <mapping resource="com/roundrocklabs/academy/hbm/ClassTeacher.hbm.xml"/>
-        <mapping resource="com/roundrocklabs/academy/hbm/Parent.hbm.xml"/>
-        <mapping resource="com/roundrocklabs/academy/hbm/Person.hbm.xml"/>
-        <mapping resource="com/roundrocklabs/academy/hbm/Room.hbm.xml"/>
         
-        <mapping resource="com/roundrocklabs/academy/hbm/Staff.hbm.xml"/>
-        <mapping resource="com/roundrocklabs/academy/hbm/Student.hbm.xml"/>
-        <mapping resource="com/roundrocklabs/academy/hbm/Teacher.hbm.xml"/ -->
+        <mapping resource="com/roundrocklabs/academy/hbm/Academy.hbm.xml"/>
 
     </session-factory>
 
