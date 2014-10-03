@@ -3,14 +3,27 @@
  * @copyright 2014 Lehi Gracia
  */
 
-package com.roundrocklabs.academy.bean;
+package com.roundrocklabs.academy.model;
+
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.hibernate.collection.internal.PersistentSet;
 
+
 public class Academy {
+	
 	private Integer academy_id;
+	
 	private String name;
+	
 	private String tax_id;
+	
 	private PersistentSet sites;
 
 	public Academy() {}
@@ -77,8 +90,8 @@ public class Academy {
 
     @Override
     public String toString(){
-    	return "Academy_id: "+ String.valueOf(this.academy_id) + 
-    			", name: " + this.name + ", tax_id: " + this.tax_id;
+    	return String.format("Academy [Academy_id: "+ String.valueOf(this.academy_id) + 
+    			", name: " + this.name + ", tax_id: " + this.tax_id + "]");
     }
 	
 }

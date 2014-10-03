@@ -3,17 +3,38 @@
  * @copyright 2014 Lehi Gracia
  */
 
-package com.roundrocklabs.academy.bean;
+package com.roundrocklabs.academy.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "class")
 public class Class {
-	Integer class_id;
-	String name;
-	String description;
-	Integer academy_id;
-	Date start_date;
-	Date retire_date;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(nullable = false)
+	private Integer class_id;
+	
+	@Column 
+	private String name;
+	
+	@Column 
+	private String description;
+	
+	@Column 
+	private Date start_date;
+	
+	@Column
+	private Date retire_date;
 	
 	
 	public Integer getClass_id() {
@@ -33,12 +54,6 @@ public class Class {
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	public Integer getAcademy_id() {
-		return academy_id;
-	}
-	public void setAcademy_id(Integer academy_id) {
-		this.academy_id = academy_id;
 	}
 	public Date getStart_date() {
 		return start_date;

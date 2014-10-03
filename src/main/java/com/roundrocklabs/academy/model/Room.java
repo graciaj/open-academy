@@ -4,7 +4,7 @@
  */
 
 
-package com.roundrocklabs.academy.bean;
+package com.roundrocklabs.academy.model;
 
 import java.sql.Date;
 

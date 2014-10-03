@@ -3,7 +3,7 @@
  * @copyright 2014 Lehi Gracia
  */
 
-package com.roundrocklabs.academy.bean;
+package com.roundrocklabs.academy.model;
 
 public class Parent extends Person {
 
