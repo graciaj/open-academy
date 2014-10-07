@@ -8,7 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.roundrocklabs.academy.manager.AcademyManager;
+import com.roundrocklabs.academy.manager.IAcademyManager;
 import com.roundrocklabs.academy.manager.impl.AcademyManagerImpl;
 import com.roundrocklabs.academy.model.*;
 import com.roundrocklabs.test.academy.utils.RandomUtil;
@@ -25,7 +25,7 @@ public class AcademyManagerTest  {
 	@Test(groups = { "regression" })
 	public void createAcademyByNameTax() {
 		
-		AcademyManager am = new AcademyManagerImpl();
+		IAcademyManager am = new AcademyManagerImpl();
 		String name = RandomUtil.getRandomName();
 		String tax = RandomUtil.getRandomTaxID();
 		Academy academy = new Academy();
@@ -34,7 +34,7 @@ public class AcademyManagerTest  {
 		
 		am.createAcademy(name,tax);
 		
-		List<Academy> savedAcademy = (List<Academy>) am.getAcademiesByName(name);
+		List<Academy> savedAcademy = (List<Academy>) am.readAcademiesByName(name);
 		log.debug("createAcademyByNameTax : " + savedAcademy.toString());
 		
 		for(Academy ac : savedAcademy){
@@ -49,14 +49,14 @@ public class AcademyManagerTest  {
 	
 	@Test(groups = { "regression" })
 	public void createAcademyByName() {
-		AcademyManager am = new AcademyManagerImpl();
+		IAcademyManager am = new AcademyManagerImpl();
 		String name = RandomUtil.getRandomName();
 		Academy academy = new Academy();
 		academy.setName(name);
 		
 		am.createAcademy(name);
 		
-		List<Academy> savedAcademy = (List<Academy>) am.getAcademiesByName(name);
+		List<Academy> savedAcademy = (List<Academy>) am.readAcademiesByName(name);
 		log.debug("createAcademyByName : " + savedAcademy.toString());
 		for(Academy ac : savedAcademy){
 			if(ac.getName().equals(academy.getName()) || ac.getTax_id().equals(academy.getTax_id())){
@@ -70,7 +70,7 @@ public class AcademyManagerTest  {
 	
 	@Test(groups = { "regression" })
 	public void updateAcademy() {
-		AcademyManager am = new AcademyManagerImpl();
+		IAcademyManager am = new AcademyManagerImpl();
 		Academy academy = new Academy();
 		
 		academy.setAcademy_id(new Integer(28));
@@ -78,7 +78,7 @@ public class AcademyManagerTest  {
 		academy.setTax_id("testng");
 		am.updateAcademy(academy);
 		
-		Academy savedAcademy = am.getAcademyByID(new Integer(28));
+		Academy savedAcademy = am.readAcademyByID(new Integer(28));
 		assert(academy.equals(savedAcademy));
 		
 		log.debug("updateAcademy : original : " + academy.toString());
@@ -87,19 +87,19 @@ public class AcademyManagerTest  {
 	}
   
 	@Test(groups = { "regression" })
-	public void getAcademyByID(){
-		AcademyManager am = new AcademyManagerImpl();
-		Academy academy = (Academy) am.getAcademyByID(24);
+	public void readAcademyByID(){
+		IAcademyManager am = new AcademyManagerImpl();
+		Academy academy = (Academy) am.readAcademyByID(24);
 		assert(academy != null);
 		log.debug("getAcademyByID : " + academy.toString());
 	}
 
 	
 	@Test(groups = { "regression" })
-	public void getAcademyByName(){
-		AcademyManager am = new AcademyManagerImpl();
+	public void readAcademyByName(){
+		IAcademyManager am = new AcademyManagerImpl();
 		List<Academy> list = new ArrayList<Academy>();
-		list = (List<Academy>) am.getAcademiesByName("academy1");
+		list = (List<Academy>) am.readAcademiesByName("academy1");
 		assert(list != null);
 		assert(list.size() > 0);
 		for(Academy academy : list){
@@ -109,10 +109,10 @@ public class AcademyManagerTest  {
 	
 	
 	@Test(groups = { "regression" })
-	public void getAcademyByTaxID(){
-		AcademyManager am = new AcademyManagerImpl();
+	public void readAcademyByTaxID(){
+		IAcademyManager am = new AcademyManagerImpl();
 		List<Academy> list = new ArrayList<Academy>();
-		list = (List<Academy>) am.getAcademiesByName("tax_changed");
+		list = (List<Academy>) am.readAcademiesByName("tax_changed");
 		assert(list != null);
 		assert(list.size() > 0);
 		for(Academy academy : list){
@@ -121,26 +121,27 @@ public class AcademyManagerTest  {
 	}
 	
 	
-//	@Test(groups = {"functional", "regression"})
-//	public void deleteAcademy(){
-//		AcademyManager am = new AcademyManagerImpl();
-//		String name = RandomUtil.getRandomName();
-//		String tax = RandomUtil.getRandomTaxID();
-//		
-//		Academy academy = new Academy();
-//		academy.setName(name);
-//		academy.setTax_id(tax);
-//		am.createAcademy(academy);
-//		
-//		academy.setAcademy_id(am.getAcademiesByName(name));
-//		Academy savedAcademy = am.getAcademyByID(academy.getAcademy_id());
-//		assert(academy.equals(savedAcademy));
-//		
-//		log.debug("deleteAcademy : " + savedAcademy.toString());
-//		
-//		am.deleteAcademy(savedAcademy);
-//		Academy deletedAcademy = am.getAcademyByID(savedAcademy.getAcademy_id());
-//		assert(deletedAcademy == null);
-//		
-//	}
+	@Test(groups = {"functional", "regression"})
+	public void deleteAcademy(){
+		IAcademyManager am = new AcademyManagerImpl();
+		String name = RandomUtil.getRandomName();
+		String tax = RandomUtil.getRandomTaxID();
+		
+		Academy academy = new Academy();
+		academy.setName(name);
+		academy.setTax_id(tax);
+		Integer id = (Integer) am.createAcademy(academy);
+		
+		log.debug(academy.toString());
+		
+		Academy savedAcademy = am.readAcademyByID(academy.getAcademy_id());
+		assert(academy.equals(savedAcademy));
+		
+		log.debug("deleteAcademy : " + savedAcademy.toString());
+		
+		am.deleteAcademy(savedAcademy);
+		Academy deletedAcademy = am.readAcademyByID(savedAcademy.getAcademy_id());
+		assert(deletedAcademy == null);
+		
+	}
 }

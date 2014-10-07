@@ -12,12 +12,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import com.roundrocklabs.academy.dao.AcademyDAO;
+import com.roundrocklabs.academy.dao.IAcademyDAO;
 import com.roundrocklabs.academy.model.Academy;
 import com.roundrocklabs.academy.utils.HibernateUtil;
 
 
-public class AcademyDAOImpl implements AcademyDAO {
+public class AcademyDAOImpl implements IAcademyDAO {
 	private static final Log log = LogFactory.getLog(AcademyDAOImpl.class);
 	
 	
@@ -27,13 +27,14 @@ public class AcademyDAOImpl implements AcademyDAO {
 	 * @param academy	Academy object to create
 	 * @return 	Academy id as stored in the database
 	 */
-	public void createAcademy(Academy academy){
+	public Integer createAcademy(Academy academy){
 		log.debug("academy created from academy: " + academy.toString());
 
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		session.save(academy);
-		session.getTransaction().commit();	
+		Integer id = (Integer) session.save(academy);
+		session.getTransaction().commit();
+		return id;	
 	}
 	
 	/**
@@ -42,14 +43,15 @@ public class AcademyDAOImpl implements AcademyDAO {
 	 * @param tax_id	Tax id of the academy if included
 	 * @return			Academy id as stored in the database
 	 */
-    public void createAcademy(String name, String tax_id) {
+    public Integer createAcademy(String name, String tax_id) {
     	log.debug("academy called from name: "+ name + " and tax_id: " + tax_id); 
     	
     	Academy academy = new Academy();
         academy.setName(name);   
         academy.setTax_id(tax_id);
         
-        createAcademy(academy);
+        Integer id = (Integer) createAcademy(academy);
+        return id;
     }
     
     
@@ -59,9 +61,10 @@ public class AcademyDAOImpl implements AcademyDAO {
      * @param name	Name of the academy
      * @return		Academy id as stored in the databse
      */
-    public void createAcademy(String name){
+    public Integer createAcademy(String name){
     	log.debug("academy called from name: "+ name); 
-    	createAcademy(name, null);
+    	Integer id = (Integer) createAcademy(name, null);
+    	return id;
     }
     
     
@@ -94,7 +97,7 @@ public class AcademyDAOImpl implements AcademyDAO {
      * @param id
      * @return
      */
-    public Academy getAcademyByID(Integer id){
+    public Academy readAcademyByID(Integer id){
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     	session.beginTransaction();
     
@@ -115,7 +118,7 @@ public class AcademyDAOImpl implements AcademyDAO {
      * @return the list of Academies or null if not found
      */
     @SuppressWarnings("unchecked")
-	public List<Academy> getAcademiesByName(String str){
+	public List<Academy> readAcademiesByName(String str){
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     	session.beginTransaction();
     	

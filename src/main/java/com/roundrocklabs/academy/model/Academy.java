@@ -90,7 +90,7 @@ public class Academy {
 
     @Override
     public String toString(){
-    	return String.format("Academy [Academy_id: "+ String.valueOf(this.academy_id) + 
+    	return String.format("Academy [academy_id: "+ String.valueOf(this.academy_id) + 
     			", name: " + this.name + ", tax_id: " + this.tax_id + "]");
     }
 	
