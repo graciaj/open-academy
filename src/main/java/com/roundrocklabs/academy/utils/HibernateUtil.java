@@ -5,10 +5,7 @@
 package com.roundrocklabs.academy.utils;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
-
-import com.roundrocklabs.academy.model.Academy;
 
 public class HibernateUtil {
     

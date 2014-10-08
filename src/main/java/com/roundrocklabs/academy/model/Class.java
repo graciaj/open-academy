@@ -18,49 +18,46 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "class")
 public class Class {
-	
+ 
+	private Integer class_id;	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(nullable = false)
-	private Integer class_id;
-	
-	@Column 
-	private String name;
-	
-	@Column 
-	private String description;
-	
-	@Column 
-	private Date start_date;
-	
-	@Column
-	private Date retire_date;
-	
-	
 	public Integer getClass_id() {
 		return class_id;
 	}
 	public void setClass_id(Integer class_id) {
 		this.class_id = class_id;
 	}
+	
+	String name;
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
+	String description;
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	
+	Date start_date;
 	public Date getStart_date() {
 		return start_date;
 	}
 	public void setStart_date(Date start_date) {
 		this.start_date = start_date;
 	}
+	
+	
+	Date retire_date;
 	public Date getRetire_date() {
 		return retire_date;
 	}

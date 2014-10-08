@@ -6,45 +6,54 @@
 package com.roundrocklabs.academy.model;
 
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-import org.hibernate.collection.internal.PersistentSet;
-
-
+@Entity
+@Table(name = "academy")
 public class Academy {
 	
+	
 	private Integer academy_id;
-	
-	private String name;
-	
-	private String tax_id;
-	
-	private PersistentSet sites;
-
-	public Academy() {}
-	
-	public Academy(String name, String tax_id) {
-		this.setName(name);
-		this.setTax_id(tax_id);
-	}
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(nullable = false, unique = true)
 	public Integer getAcademy_id() {
 		return academy_id;
 	}
 	public void setAcademy_id(Integer academy_id) {
 		this.academy_id = academy_id;
 	}
+
+
+	public Academy() {}
+		
+	public Academy(String name, String tax_id) {
+		this.setName(name);
+		this.setTax_id(tax_id);
+	}
+	
+	
+	String name;
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
+	String tax_id;
 	public String getTax_id() {
 		return tax_id;
 	}
@@ -52,14 +61,16 @@ public class Academy {
 		this.tax_id = tax_id;
 	}
 	
-	
-	public PersistentSet getSites() {
+
+	private List<Site> sites;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "academy")
+	public List<Site> getSites() {
 		return sites;
 	}
-
-	public void setSites(PersistentSet sites) {
+	public void setSites(List<Site> sites) {
 		this.sites = sites;
 	}
+
 
 	@Override
     public boolean equals(Object obj) {
