@@ -1,4 +1,9 @@
-com.roundrocklabs.academy.bean
+com.roundrocklabs.academy.dao
+com.roundrocklabs.academy.dao.impl
 com.roundrocklabs.academy.manager
+com.roundrocklabs.academy.manager.impl
+com.roundrocklabs.academy.model
 com.roundrocklabs.academy.utils
+com.roundrocklabs.test.academy.dao
 com.roundrocklabs.test.academy.manager
+com.roundrocklabs.test.academy.utils
