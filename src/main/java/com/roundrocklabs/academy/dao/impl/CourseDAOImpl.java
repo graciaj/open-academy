@@ -21,6 +21,7 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * @param course to create
 	 * @return 	Course id, as stored in the database
 	 */
+	@Override
 	public Integer create(Course course) {
 		log.debug("Course created from course: " + course.toString());
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -38,6 +39,7 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * @param description	saved if included
 	 * @return	course id, as stored in the database
 	 */
+	@Override
 	public Integer create(String name, String description) {
 		Course course = new Course();
 		course.setName(name);
@@ -52,6 +54,7 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * @param name of the course
 	 * @return course id
 	 */
+	@Override
 	public Integer create(String name) {
 		Course course = new Course();
 		course.setName(name);
@@ -68,6 +71,7 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * @param start_date of the course
 	 * @return	course id, as stored in the database
 	 */
+	@Override
 	public Integer create(String name, String description, Date start_date) {
 		Course course = new Course();
 		course.setName(name);
@@ -81,6 +85,7 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * 
 	 * @param course object
 	 */
+	@Override
 	public void update(Course course) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
@@ -114,6 +119,7 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * @param id of the course
 	 * @return course object that matches the id
 	 */
+	@Override
 	public Course readByID(Integer id) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
@@ -127,6 +133,8 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * @param name or partial
 	 * @return List of courses that match the string or null if none found
 	 */
+	@Override
+	@SuppressWarnings("unchecked")
 	public List<Course> readByName(String str) {
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     	session.beginTransaction();
@@ -157,6 +165,7 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * 
 	 * @param object to delete
 	 */
+	@Override
 	public void delete(Course course) {
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     	session.beginTransaction();

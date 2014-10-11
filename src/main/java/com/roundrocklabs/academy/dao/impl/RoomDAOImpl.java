@@ -75,6 +75,7 @@ public class RoomDAOImpl implements IRoomDAO {
 		return room;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Room> readByName(String name) {
 		log.debug("Looking for string " + name + " in the list of rooms.");

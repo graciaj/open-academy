@@ -53,6 +53,7 @@ public class SiteDAOImpl implements ISiteDAO {
 		return site;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Site> readByName(String name) {
 		log.debug("Looking for string " + name + " in the list of sites.");

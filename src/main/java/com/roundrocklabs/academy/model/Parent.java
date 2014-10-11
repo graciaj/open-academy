@@ -6,8 +6,6 @@
 package com.roundrocklabs.academy.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
