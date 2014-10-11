@@ -16,11 +16,9 @@ import javax.persistence.Table;
 @Table(name="staff")
 public class Staff extends Person {
 
-	public Staff() {
-		super();
-	}
-
 	Integer staff_id;
+	
+	
 	public Integer getStaff_id() {
 		return staff_id;
 	}

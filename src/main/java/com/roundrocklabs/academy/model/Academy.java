@@ -14,17 +14,20 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "academy")
 public class Academy {
-	
+
 	
 	private Integer academy_id;
+	String name;
+	String tax_id;
+	private List<Site> sites;
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(nullable = false, unique = true)
@@ -34,17 +37,8 @@ public class Academy {
 	public void setAcademy_id(Integer academy_id) {
 		this.academy_id = academy_id;
 	}
-
-
-	public Academy() {}
-		
-	public Academy(String name, String tax_id) {
-		this.setName(name);
-		this.setTax_id(tax_id);
-	}
 	
-	
-	String name;
+
 	public String getName() {
 		return name;
 	}
@@ -53,7 +47,6 @@ public class Academy {
 	}
 	
 	
-	String tax_id;
 	public String getTax_id() {
 		return tax_id;
 	}
@@ -62,7 +55,6 @@ public class Academy {
 	}
 	
 
-	private List<Site> sites;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "academy")
 	public List<Site> getSites() {
 		return sites;
@@ -82,7 +74,9 @@ public class Academy {
         }
 
         Academy guest = (Academy) obj;
-        return (this.academy_id == guest.academy_id || (this.academy_id.equals(guest.academy_id)))
+        return (this.academy_id != null 
+        		&& guest.academy_id != null
+        		&& (this.academy_id == guest.academy_id || (this.academy_id.equals(guest.academy_id))))
         		&& (this.name == guest.name  || (this.name != null && this.name.equals(guest.getName())))
                 && (this.tax_id == guest.tax_id || (this.tax_id != null && this.tax_id.equals(guest.getTax_id())));
     }

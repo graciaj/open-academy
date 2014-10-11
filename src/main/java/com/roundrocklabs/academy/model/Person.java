@@ -21,6 +21,22 @@ import javax.persistence.InheritanceType;
 public abstract class Person {
 	
 	Integer person_id;
+	String first_name;	
+	String middle_name;
+	String last_name;	
+	String last_name_2;
+	String address1;
+	String address2;
+	String city;
+	String state;
+	String zip;
+	String phone1;
+	String phone2;
+	String email;
+	String username;
+	String password;	
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(nullable = false)
@@ -32,7 +48,6 @@ public abstract class Person {
 	}
 	
 	
-	String first_name;
 	public String getFirst_name() {
 		return first_name;
 	}
@@ -41,7 +56,6 @@ public abstract class Person {
 	}
 	
 	
-	String middle_name;
 	public String getMiddle_name() {
 		return middle_name;
 	}
@@ -50,7 +64,6 @@ public abstract class Person {
 	}
 	
 	
-	String last_name;
 	public String getLast_name() {
 		return last_name;
 	}
@@ -59,7 +72,6 @@ public abstract class Person {
 	}
 	
 	
-	String last_name_2;
 	public String getLast_name_2() {
 		return last_name_2;
 	}
@@ -68,7 +80,6 @@ public abstract class Person {
 	}
 	
 	
-	String address1;
 	public String getAddress1() {
 		return address1;
 	}
@@ -77,7 +88,6 @@ public abstract class Person {
 	}
 	
 	
-	String address2;
 	public String getAddress2() {
 		return address2;
 	}
@@ -86,7 +96,6 @@ public abstract class Person {
 	}
 	
 	
-	String city;
 	public String getCity() {
 		return city;
 	}
@@ -95,7 +104,6 @@ public abstract class Person {
 	}
 	
 	
-	String state;
 	public String getState() {
 		return state;
 	}
@@ -104,7 +112,6 @@ public abstract class Person {
 	}
 	
 	
-	String zip;
 	public String getZip() {
 		return zip;
 	}
@@ -113,7 +120,6 @@ public abstract class Person {
 	}
 	
 	
-	String phone1;
 	public String getPhone1() {
 		return phone1;
 	}
@@ -122,7 +128,6 @@ public abstract class Person {
 	}
 	
 	
-	String phone2;
 	public String getPhone2() {
 		return phone2;
 	}
@@ -131,7 +136,6 @@ public abstract class Person {
 	}
 	
 	
-	String email;
 	public String getEmail() {
 		return email;
 	}
@@ -139,8 +143,7 @@ public abstract class Person {
 		this.email = email;
 	}
 	
-	
-	String username;
+
 	public String getUsername() {
 		return username;
 	}
@@ -149,7 +152,6 @@ public abstract class Person {
 	}
 	
 	
-	String password;
 	public String getPassword() {
 		return password;
 	}

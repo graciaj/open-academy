@@ -27,7 +27,7 @@ public class AcademyDAOImpl implements IAcademyDAO {
 	 * @param academy	Academy object to create
 	 * @return 	Academy id as stored in the database
 	 */
-	public Integer createAcademy(Academy academy){
+	public Integer create(Academy academy){
 		log.debug("academy created from academy: " + academy.toString());
 
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -43,14 +43,14 @@ public class AcademyDAOImpl implements IAcademyDAO {
 	 * @param tax_id	Tax id of the academy if included
 	 * @return			Academy id as stored in the database
 	 */
-    public Integer createAcademy(String name, String tax_id) {
+    public Integer create(String name, String tax_id) {
     	log.debug("academy called from name: "+ name + " and tax_id: " + tax_id); 
     	
     	Academy academy = new Academy();
         academy.setName(name);   
         academy.setTax_id(tax_id);
         
-        Integer id = (Integer) createAcademy(academy);
+        Integer id = (Integer) create(academy);
         return id;
     }
     
@@ -61,9 +61,9 @@ public class AcademyDAOImpl implements IAcademyDAO {
      * @param name	Name of the academy
      * @return		Academy id as stored in the databse
      */
-    public Integer createAcademy(String name){
+    public Integer create(String name){
     	log.debug("academy called from name: "+ name); 
-    	Integer id = (Integer) createAcademy(name, null);
+    	Integer id = (Integer) create(name, null);
     	return id;
     }
     
@@ -75,16 +75,16 @@ public class AcademyDAOImpl implements IAcademyDAO {
      * @param academy	Academy object to change. The academy_id must be the one that needs
      * 						to be changed and it must exist in the database
      */
-    public void updateAcademy(Academy academy){
+    public void update(Academy academy){
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     	session.beginTransaction();
     	
     	Academy academy2 = (Academy) session.load(Academy.class, academy.getAcademy_id());
     	
-    	if( !academy.getName().isEmpty() || !( academy == null ) )
+    	if(!academy.getName().isEmpty() || !(academy == null))
     		academy2.setName( academy.getName() );
     	
-    	if( !academy.getTax_id().isEmpty() || !( academy.getTax_id() == null ))
+    	if(!academy.getTax_id().isEmpty() || !(academy.getTax_id() == null))
     		academy2.setTax_id(academy.getTax_id());
     	
     	session.getTransaction().commit();
@@ -97,7 +97,7 @@ public class AcademyDAOImpl implements IAcademyDAO {
      * @param id
      * @return
      */
-    public Academy readAcademyByID(Integer id){
+    public Academy readByID(Integer id){
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     	session.beginTransaction();
     
@@ -118,7 +118,7 @@ public class AcademyDAOImpl implements IAcademyDAO {
      * @return the list of Academies or null if not found
      */
     @SuppressWarnings("unchecked")
-	public List<Academy> readAcademiesByName(String str){
+	public List<Academy> readByName(String str){
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     	session.beginTransaction();
     	
@@ -127,7 +127,7 @@ public class AcademyDAOImpl implements IAcademyDAO {
     	
     	List<Academy> results = query.list();
     	
-    	if(results.isEmpty() || results == null){
+    	if(results == null || results.isEmpty()){
     		Query query2 =session.createQuery("from Academy a where str(a.tax_id) like :tax_id")
         			.setParameter("tax_id", str);
     		results = query2.list();
@@ -135,7 +135,7 @@ public class AcademyDAOImpl implements IAcademyDAO {
     	
     	session.getTransaction().commit();
     	
-    	if(results.isEmpty() || results == null){
+    	if(results == null || results.isEmpty()){
     		return null;
     	}else{
     		return results;
@@ -149,7 +149,7 @@ public class AcademyDAOImpl implements IAcademyDAO {
      * 
      * @param academy to delete
      */
-    public void deleteAcademy(Academy academy){
+    public void delete(Academy academy){
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     	session.beginTransaction();
     	

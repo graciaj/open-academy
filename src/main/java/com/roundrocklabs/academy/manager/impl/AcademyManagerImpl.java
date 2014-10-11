@@ -12,32 +12,39 @@ public class AcademyManagerImpl implements IAcademyManager{
 	
 	private IAcademyDAO academyDAO = new AcademyDAOImpl();
 	
-	public Integer createAcademy(String name, String tax_id) {
-		return (Integer) academyDAO.createAcademy(name, tax_id);
+	@Override
+	public Integer create(String name, String tax_id) {
+		return academyDAO.create(name, tax_id);
 	}
 
-	public Integer createAcademy(String name) {
-		return (Integer) academyDAO.createAcademy(name);
+	@Override
+	public Integer create(String name) {
+		return academyDAO.create(name);
 	}
 	
-	public Integer createAcademy(Academy academy){
-		return (Integer) academyDAO.createAcademy(academy);
+	@Override
+	public Integer create(Academy academy){
+		return academyDAO.create(academy);
 	}
 	
-	public void updateAcademy(Academy academy){
-		academyDAO.updateAcademy(academy);
+	@Override
+	public void update(Academy academy){
+		academyDAO.update(academy);
 	}
 	
-	public Academy readAcademyByID(Integer id){
-		return (Academy) academyDAO.readAcademyByID(id);
+	@Override
+	public Academy readByID(Integer id){
+		return academyDAO.readByID(id);
 	}
 	
-	public List<Academy> readAcademiesByName(String str){
-		return (List<Academy>) academyDAO.readAcademiesByName(str);
+	@Override
+	public List<Academy> readByName(String str){
+		return academyDAO.readByName(str);
 	}
 	
-	public void deleteAcademy(Academy academy){
-		academyDAO.deleteAcademy(academy);
+	@Override
+	public void delete(Academy academy){
+		academyDAO.delete(academy);
 	}
 	
 }

@@ -18,9 +18,18 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "site")
 public class Site {
-	
 
 	Academy academy;
+	Integer site_id;
+	String name;
+	String description;
+	String address1;
+	String address2;
+	String city;
+	String state;
+	String zip;
+	
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="academy_id", referencedColumnName="academy_id")
 	@OrderBy("name ASC")
@@ -32,7 +41,6 @@ public class Site {
 	}	
 	
 	
-	Integer site_id;
 	@Id
 	public Integer getSite_id() {
 		return site_id;
@@ -42,7 +50,6 @@ public class Site {
 	}	
 
 	
-	String name;
 	public String getName() {
 		return name;
 	}
@@ -51,7 +58,13 @@ public class Site {
 	}
 	
 	
-	String address1;
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public String getAddress1() {
 		return address1;
 	}
@@ -60,7 +73,6 @@ public class Site {
 	}
 	
 	
-	String address2;
 	public String getAddress2() {
 		return address2;
 	}
@@ -69,7 +81,6 @@ public class Site {
 	}
 	
 	
-	String city;
 	public String getCity() {
 		return city;
 	}
@@ -78,7 +89,6 @@ public class Site {
 	}
 	
 	
-	String state;
 	public String getState() {
 		return state;
 	}
@@ -87,7 +97,6 @@ public class Site {
 	}
 	
 	
-	String zip;
 	public String getZip() {
 		return zip;
 	}

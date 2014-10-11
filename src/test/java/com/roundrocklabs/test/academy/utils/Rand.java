@@ -2,7 +2,7 @@ package com.roundrocklabs.test.academy.utils;
 
 import java.util.Random;
 
-public class RandomUtil {
+public class Rand {
 
 	public static String getRandomName(){
 		char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();

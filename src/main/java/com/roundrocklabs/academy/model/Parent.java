@@ -14,11 +14,11 @@ import javax.persistence.Table;
 @Table(name="parent")
 public class Parent extends Person {
 
-	public Parent() {
-		super();
-	}
 	
 	Integer student_id;
+	Integer parent_id;
+	
+	
 	public Integer getStudent_id() {
 		return student_id;
 	}
@@ -27,7 +27,6 @@ public class Parent extends Person {
 	}
 	
 	
-	Integer parent_id;
 	public Integer getParent_id() {
 		return parent_id;
 	}

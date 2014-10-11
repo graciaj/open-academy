@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import com.roundrocklabs.academy.manager.IAcademyManager;
 import com.roundrocklabs.academy.manager.impl.AcademyManagerImpl;
 import com.roundrocklabs.academy.model.*;
-import com.roundrocklabs.test.academy.utils.RandomUtil;
+import com.roundrocklabs.test.academy.utils.Rand;
 
 
 public class AcademyManagerTest  {
@@ -26,15 +26,15 @@ public class AcademyManagerTest  {
 	public void createAcademyByNameTax() {
 		
 		IAcademyManager am = new AcademyManagerImpl();
-		String name = RandomUtil.getRandomName();
-		String tax = RandomUtil.getRandomTaxID();
+		String name = Rand.getRandomName();
+		String tax = Rand.getRandomTaxID();
 		Academy academy = new Academy();
 		academy.setName(name);
 		academy.setTax_id(tax);
 		
-		am.createAcademy(name,tax);
+		am.create(name,tax);
 		
-		List<Academy> savedAcademy = (List<Academy>) am.readAcademiesByName(name);
+		List<Academy> savedAcademy = (List<Academy>) am.readByName(name);
 		log.debug("createAcademyByNameTax : " + savedAcademy.toString());
 		
 		for(Academy ac : savedAcademy){
@@ -50,13 +50,13 @@ public class AcademyManagerTest  {
 	@Test(groups = { "regression" })
 	public void createAcademyByName() {
 		IAcademyManager am = new AcademyManagerImpl();
-		String name = RandomUtil.getRandomName();
+		String name = Rand.getRandomName();
 		Academy academy = new Academy();
 		academy.setName(name);
 		
-		am.createAcademy(name);
+		am.create(name);
 		
-		List<Academy> savedAcademy = (List<Academy>) am.readAcademiesByName(name);
+		List<Academy> savedAcademy = (List<Academy>) am.readByName(name);
 		log.debug("createAcademyByName : " + savedAcademy.toString());
 		for(Academy ac : savedAcademy){
 			if(ac.getName().equals(academy.getName()) || ac.getTax_id().equals(academy.getTax_id())){
@@ -76,9 +76,9 @@ public class AcademyManagerTest  {
 		academy.setAcademy_id(new Integer(28));
 		academy.setName("updated_by_testng");
 		academy.setTax_id("testng");
-		am.updateAcademy(academy);
+		am.update(academy);
 		
-		Academy savedAcademy = am.readAcademyByID(new Integer(28));
+		Academy savedAcademy = am.readByID(new Integer(28));
 		assert(academy.equals(savedAcademy));
 		
 		log.debug("updateAcademy : original : " + academy.toString());
@@ -89,7 +89,7 @@ public class AcademyManagerTest  {
 	@Test(groups = { "regression" })
 	public void readAcademyByID(){
 		IAcademyManager am = new AcademyManagerImpl();
-		Academy academy = (Academy) am.readAcademyByID(24);
+		Academy academy = (Academy) am.readByID(24);
 		assert(academy != null);
 		log.debug("getAcademyByID : " + academy.toString());
 	}
@@ -99,7 +99,7 @@ public class AcademyManagerTest  {
 	public void readAcademyByName(){
 		IAcademyManager am = new AcademyManagerImpl();
 		List<Academy> list = new ArrayList<Academy>();
-		list = (List<Academy>) am.readAcademiesByName("academy1");
+		list = (List<Academy>) am.readByName("academy1");
 		assert(list != null);
 		assert(list.size() > 0);
 		for(Academy academy : list){
@@ -112,7 +112,7 @@ public class AcademyManagerTest  {
 	public void readAcademyByTaxID(){
 		IAcademyManager am = new AcademyManagerImpl();
 		List<Academy> list = new ArrayList<Academy>();
-		list = (List<Academy>) am.readAcademiesByName("tax_changed");
+		list = (List<Academy>) am.readByName("tax_changed");
 		assert(list != null);
 		assert(list.size() > 0);
 		for(Academy academy : list){
@@ -124,23 +124,23 @@ public class AcademyManagerTest  {
 	@Test(groups = {"functional", "regression"})
 	public void deleteAcademy(){
 		IAcademyManager am = new AcademyManagerImpl();
-		String name = RandomUtil.getRandomName();
-		String tax = RandomUtil.getRandomTaxID();
+		String name = Rand.getRandomName();
+		String tax = Rand.getRandomTaxID();
 		
 		Academy academy = new Academy();
 		academy.setName(name);
 		academy.setTax_id(tax);
-		Integer id = (Integer) am.createAcademy(academy);
+		Integer id = (Integer) am.create(academy);
 		
 		log.debug(academy.toString());
 		
-		Academy savedAcademy = am.readAcademyByID(academy.getAcademy_id());
+		Academy savedAcademy = am.readByID(academy.getAcademy_id());
 		assert(academy.equals(savedAcademy));
 		
 		log.debug("deleteAcademy : " + savedAcademy.toString());
 		
-		am.deleteAcademy(savedAcademy);
-		Academy deletedAcademy = am.readAcademyByID(savedAcademy.getAcademy_id());
+		am.delete(savedAcademy);
+		Academy deletedAcademy = am.readByID(savedAcademy.getAcademy_id());
 		assert(deletedAcademy == null);
 		
 	}
