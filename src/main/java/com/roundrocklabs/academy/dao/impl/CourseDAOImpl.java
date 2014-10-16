@@ -1,6 +1,6 @@
 package com.roundrocklabs.academy.dao.impl;
 
-import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -22,63 +22,16 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * @return 	Course id, as stored in the database
 	 */
 	@Override
-	public Integer create(Course course) {
+	public Course create(Course course) {
 		log.debug("Course created from course: " + course.toString());
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		Integer id = (Integer) session.save(course);
 		session.getTransaction().commit();
-		return id;
+		course.setCourse_id(id);
+		return course;
 	}
 
-	
-	/**
-	 * Creates a new object and saves it to the database
-	 * 
-	 * @param name	of the course
-	 * @param description	saved if included
-	 * @return	course id, as stored in the database
-	 */
-	@Override
-	public Integer create(String name, String description) {
-		Course course = new Course();
-		course.setName(name);
-		course.setDescription(description);
-		return create(course);
-	}
-
-
-	/**
-	 * Creates a new object from the name
-	 * 
-	 * @param name of the course
-	 * @return course id
-	 */
-	@Override
-	public Integer create(String name) {
-		Course course = new Course();
-		course.setName(name);
-		return create(course);
-	}
-
-	
-	
-	/**
-	 * Creates a new object and saves it to the database
-	 * 
-	 * @param name	of the course
-	 * @param description	saved if included
-	 * @param start_date of the course
-	 * @return	course id, as stored in the database
-	 */
-	@Override
-	public Integer create(String name, String description, Date start_date) {
-		Course course = new Course();
-		course.setName(name);
-		course.setDescription(description);
-		course.setStart_date(start_date);
-		return create(course);
-	}
 	
 	/**
 	 * Updates the course
@@ -112,20 +65,6 @@ public class CourseDAOImpl implements ICourseDAO {
 		
 	}
 
-
-	/**
-	 * Finds a course in the database by the course id
-	 * 
-	 * @param id of the course
-	 * @return course object that matches the id
-	 */
-	@Override
-	public Course readByID(Integer id) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-		return (Course) session.load(Course.class, id);
-	}
-
 	
 	/**
 	 * Finds the courses that match the partial string
@@ -135,28 +74,37 @@ public class CourseDAOImpl implements ICourseDAO {
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Course> readByName(String str) {
+	public List<Course> read(Course course) {
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     	session.beginTransaction();
-    	
-    	Query query = session.createQuery("from course c where str(c.name) like :name")
-    			.setParameter("name", str);
-    	
-    	List<Course> results = query.list();
-    	
-    	if(results == null || results.isEmpty()){
-    		Query query2 =session.createQuery("from course c where str(c.description) like :desc")
-        			.setParameter("desc", str);
-    		results = query2.list();
-    	}
-    	
-    	session.getTransaction().commit();
-    	
-    	if(results == null || results.isEmpty()){
-    		return null;
+
+		if (course.getCourse_id() != null) {
+    		Course c = (Course) session.load(Course.class, course.getCourse_id());
+        	session.getTransaction().commit();
+			List<Course> cl = new ArrayList<Course>();
+    		cl.add(c);
+    		return cl;
     	}else{
-    		return results;
+        	Query query = session.createQuery("from course c where str(c.name) like :name")
+        			.setParameter("name", course.getName());
+        	
+        	List<Course> results = query.list();
+        	
+        	if(results == null || results.isEmpty()){
+        		Query query2 =session.createQuery("from course c where str(c.description) like :desc")
+            			.setParameter("desc", course.getDescription());
+        		results = query2.list();
+        	}
+        	
+        	session.getTransaction().commit();
+        	
+        	if(results == null || results.isEmpty()){
+        		return null;
+        	}else{
+        		return results;
+        	}
     	}
+		
 	}
 
 	

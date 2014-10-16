@@ -1,28 +1,17 @@
 package com.roundrocklabs.academy.dao;
 
-import java.sql.Date;
 import java.util.List;
 
 import com.roundrocklabs.academy.model.Room;
 
 public interface IRoomDAO {
+
+	public Room create(Room a);
 	
-	public Integer create(Room room);
+	public void update(Room a);
 	
-	public Integer create(String name);
+	public List<Room> read(Room a);
 	
-	public Integer create(String name, String description);
-	
-	public Integer create(String name, String description, Integer size);
-	
-	public Integer create(String name, String description, Integer size, Date start_date);
-	
-	public Room readById(Integer id);
-	
-	public List<Room> readByName(String name);
-	
-	public void update(Room room);
-	
-	public void delete(Room room);
+	public void delete(Room a);
 	
 }

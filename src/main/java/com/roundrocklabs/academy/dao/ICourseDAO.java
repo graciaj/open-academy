@@ -1,26 +1,17 @@
 package com.roundrocklabs.academy.dao;
 
-import java.sql.Date;
 import java.util.List;
 
 import com.roundrocklabs.academy.model.Course;
 
 public interface ICourseDAO {
 
-	public Integer create(Course course);
+	public Course create(Course a);
 	
-	public Integer create(String name, String description);
+	public void update(Course a);
 	
-	public Integer create(String name);
+	public List<Course> read(Course a);
 	
-	public Integer create(String name, String description, Date start_date);
-	
-	public void update(Course course);
-	
-	public Course readByID(Integer id);
-	
-	public List<Course> readByName(String str);
-	
-	public void delete(Course course);
+	public void delete(Course a);
 	
 }

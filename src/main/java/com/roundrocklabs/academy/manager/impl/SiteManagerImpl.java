@@ -8,25 +8,17 @@ import com.roundrocklabs.academy.manager.ISiteManager;
 import com.roundrocklabs.academy.model.Site;
 
 public class SiteManagerImpl implements ISiteManager {
-	ISiteDAO siteDAO = new SiteDAOImpl();
+
+	private ISiteDAO siteDAO = new SiteDAOImpl();
+
 	@Override
-	public Integer create(Site site) {
+	public Site create(Site site) {
 		return siteDAO.create(site);
 	}
 
 	@Override
-	public Integer create(String name) {
-		return siteDAO.create(name);
-	}
-
-	@Override
-	public Site readById(Integer id) {
-		return siteDAO.readById(id);
-	}
-
-	@Override
-	public List<Site> readByName(String name) {
-		return siteDAO.readByName(name);
+	public List<Site> read(Site s) {
+		return siteDAO.read(s);
 	}
 
 	@Override

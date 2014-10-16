@@ -1,5 +1,6 @@
 package com.roundrocklabs.academy.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -15,7 +16,7 @@ public class SiteDAOImpl implements ISiteDAO {
 	private static final Log log = LogFactory.getLog(SiteDAOImpl.class);
 
 	@Override
-	public Integer create(Site site) {
+	public Site create(Site site) {
 		log.debug("site created from: " + site.toString());
 
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -23,62 +24,48 @@ public class SiteDAOImpl implements ISiteDAO {
 		Integer id = (Integer) session.save(site);
 		session.getTransaction().commit();
 		site.setSite_id(id);
-		return id;
-	}
-
-	@Override
-	public Integer create(String name) {
-		Site site = new Site();
-		site.setName(name);
-
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-		Integer id = (Integer) session.save(site);
-		session.getTransaction().commit();
-		site.setSite_id(id);
-		return id;
-	}
-
-	@Override
-	public Site readById(Integer id) {
-		log.debug("Reading a Site by id: " + id);
-
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-
-		Query query = session.createQuery("from Site s where s.site_id = :id").setParameter("id", id);
-
-		Site site = (Site) query.uniqueResult();
-		session.getTransaction().commit();
 		return site;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Site> readByName(String name) {
-		log.debug("Looking for string " + name + " in the list of sites.");
+	public List<Site> read(Site s) {
+		log.debug("Reading a Site by id: " + s.toString());
 
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 
-		Query query = session.createQuery("from Site s where str(s.name) like :name").setParameter("name", name);
+		if (s.getSite_id() != null) {
+			Query query = session.createQuery("from Site s where s.site_id = :id").setParameter("id", s.getSite_id());
 
-		List<Site> results = query.list();
+			Site site = (Site) query.uniqueResult();
+			session.getTransaction().commit();
 
-		if (results == null || results.isEmpty()) {
-			Query query2 = session.createQuery("from Site s where str(s.description) like :description").setParameter(
-					"description", name);
-			results = query2.list();
-		}
-
-		session.getTransaction().commit();
-
-		if (results == null || results.isEmpty()) {
-			return null;
+			List<Site> sl = new ArrayList();
+			sl.add(site);
+			return sl;
 		} else {
-			return results;
+			Query query = session.createQuery("from Site s where str(s.name) like :name").setParameter("name",
+					s.getName());
+
+			List<Site> results = query.list();
+
+			if (results == null || results.isEmpty()) {
+				Query query2 = session.createQuery("from Site s where str(s.description) like :description")
+						.setParameter("description", s.getDescription());
+				results = query2.list();
+			}
+
+			session.getTransaction().commit();
+
+			if (results == null || results.isEmpty()) {
+				return null;
+			} else {
+				return results;
+			}
 		}
+
 	}
+
 
 	@Override
 	public void update(Site site) {

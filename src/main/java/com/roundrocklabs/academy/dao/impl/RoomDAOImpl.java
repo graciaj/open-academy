@@ -1,6 +1,6 @@
 package com.roundrocklabs.academy.dao.impl;
 
-import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -16,7 +16,7 @@ public class RoomDAOImpl implements IRoomDAO {
 	private static final Log log = LogFactory.getLog(RoomDAOImpl.class);
 
 	@Override
-	public Integer create(Room room) {
+	public Room create(Room room) {
 		log.debug("room created from: " + room.toString());
 
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -24,83 +24,46 @@ public class RoomDAOImpl implements IRoomDAO {
 		Integer id = (Integer) session.save(room);
 		session.getTransaction().commit();
 		room.setRoom_id(id);
-		return id;
-	}
-
-	@Override
-	public Integer create(String name) {
-		Room room = new Room();
-		room.setName(name);
-		return create(room);
-	}
-
-	@Override
-	public Integer create(String name, String description) {
-		Room room = new Room();
-		room.setName(name);
-		room.setDescription(description);
-		return create(room);
-	}
-
-	@Override
-	public Integer create(String name, String description, Integer size) {
-		Room room = new Room();
-		room.setName(name);
-		room.setDescription(description);
-		room.setSize(size);
-		return create(room);
-	}
-
-	@Override
-	public Integer create(String name, String description, Integer size, Date start_date) {
-		Room room = new Room();
-		room.setName(name);
-		room.setDescription(description);
-		room.setSize(size);
-		room.setStart_date(start_date);
-		return create(room);
-	}
-
-	@Override
-	public Room readById(Integer id) {
-		log.debug("Reading a Room by id: " + id);
-
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-
-		Query query = session.createQuery("from Room r where r.room_id = :id").setParameter("id", id);
-
-		Room room = (Room) query.uniqueResult();
-		session.getTransaction().commit();
 		return room;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Room> readByName(String name) {
-		log.debug("Looking for string " + name + " in the list of rooms.");
+	public List<Room> read(Room r) {
+		log.debug("Reading a Room: " + r.toString());
 
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 
-		Query query = session.createQuery("from Room r where str(r.name) like :name").setParameter("name", name);
-
-		List<Room> results = query.list();
-
-		if (results == null || results.isEmpty()) {
-			Query query2 = session.createQuery("from Room r where str(r.description) like :description").setParameter(
-					"description", name);
-			results = query2.list();
-		}
-
-		session.getTransaction().commit();
-
-		if (results == null || results.isEmpty()) {
-			return null;
+		if (r.getRoom_id() != null) {
+			Query query = session.createQuery("from Room r where r.room_id = :id").setParameter("id", r.getRoom_id());
+			Room room = (Room) query.uniqueResult();
+			session.getTransaction().commit();
+			List<Room> rl = new ArrayList();
+			rl.add(r);
+			return rl;
 		} else {
-			return results;
+			Query query = session.createQuery("from Room r where str(r.name) like :name").setParameter("name",
+					r.getName());
+
+			List<Room> results = query.list();
+
+			if (results == null || results.isEmpty()) {
+				Query query2 = session.createQuery("from Room r where str(r.description) like :description")
+						.setParameter("description", r.getDescription());
+				results = query2.list();
+			}
+
+			session.getTransaction().commit();
+
+			if (results == null || results.isEmpty()) {
+				return null;
+			} else {
+				return results;
+			}
 		}
+
 	}
+
 
 	@Override
 	public void update(Room room) {
@@ -124,6 +87,7 @@ public class RoomDAOImpl implements IRoomDAO {
 
 		session.getTransaction().commit();
 	}
+
 
 	@Override
 	public void delete(Room room) {

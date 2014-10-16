@@ -28,6 +28,18 @@ public class Academy {
 	private List<Site> sites;
 	
 	
+	public Academy(String name2, String tax_id2) {
+		this.name = name2;
+		this.tax_id = tax_id2;
+	}
+
+	public Academy(String name2) {
+		this.name = name2;
+	}
+
+	public Academy() {
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(nullable = false, unique = true)

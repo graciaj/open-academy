@@ -6,12 +6,14 @@
 
 package com.roundrocklabs.academy.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
 import org.hibernate.Session;
+
 import com.roundrocklabs.academy.dao.IAcademyDAO;
 import com.roundrocklabs.academy.model.Academy;
 import com.roundrocklabs.academy.utils.HibernateUtil;
@@ -27,46 +29,18 @@ public class AcademyDAOImpl implements IAcademyDAO {
 	 * @param academy	Academy object to create
 	 * @return 	Academy id as stored in the database
 	 */
-	public Integer create(Academy academy){
+	@Override
+	public Academy create(Academy academy) {
 		log.debug("academy created from academy: " + academy.toString());
 
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		Integer id = (Integer) session.save(academy);
 		session.getTransaction().commit();
-		return id;	
+		academy.setAcademy_id(id);
+		return academy;
 	}
-	
-	/**
-	 * Creates a new Academy object and saves it to the database
-	 * @param name		Name of the academy
-	 * @param tax_id	Tax id of the academy if included
-	 * @return			Academy id as stored in the database
-	 */
-    public Integer create(String name, String tax_id) {
-    	log.debug("academy called from name: "+ name + " and tax_id: " + tax_id); 
-    	
-    	Academy academy = new Academy();
-        academy.setName(name);   
-        academy.setTax_id(tax_id);
-        
-        Integer id = (Integer) create(academy);
-        return id;
-    }
-    
-    
-    /**
-     * Creates a new Academy object and saves it to the database. Tax id will be null
-     * 
-     * @param name	Name of the academy
-     * @return		Academy id as stored in the databse
-     */
-    public Integer create(String name){
-    	log.debug("academy called from name: "+ name); 
-    	Integer id = (Integer) create(name, null);
-    	return id;
-    }
-    
+
     
     /**
      * Updates the academy information as passed by the Academy object. 
@@ -75,7 +49,8 @@ public class AcademyDAOImpl implements IAcademyDAO {
      * @param academy	Academy object to change. The academy_id must be the one that needs
      * 						to be changed and it must exist in the database
      */
-    public void update(Academy academy){
+    @Override
+	public void update(Academy academy){
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     	session.beginTransaction();
     	
@@ -92,55 +67,57 @@ public class AcademyDAOImpl implements IAcademyDAO {
     
     
     /**
-     * Finds an Academy in the database
-     * 
-     * @param id
-     * @return
-     */
-    public Academy readByID(Integer id){
+	 * Finds an Academy in the database using id, or name, or tax_id
+	 * 
+	 * @param Academy
+	 * 
+	 * @return list of academies
+	 */
+	@Override
+	public List<Academy> read(Academy a) {
+		
+		if (a == null){
+			return null;
+		}
+		
+		if (a.getAcademy_id() == null && a.getName() == null && a.getTax_id() == null ){
+			return null;
+		}
+		
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     	session.beginTransaction();
     
-    	Query query = session.createQuery("from Academy a where a.academy_id = :id")
-    			.setParameter("id", id);
-    	
-    	Academy academy = (Academy) query.uniqueResult();
-    	session.getTransaction().commit();
-    	
-    	return academy;
-    }
-    
-    
-    /**
-     * Finds an Academy by a partial name or partial tax id
-     * 
-     * @param str
-     * @return the list of Academies or null if not found
-     */
-    @SuppressWarnings("unchecked")
-	public List<Academy> readByName(String str){
-    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-    	session.beginTransaction();
-    	
-    	Query query = session.createQuery("from Academy a where str(a.name) like :name")
-    			.setParameter("name", str);
-    	
-    	List<Academy> results = query.list();
-    	
-    	if(results == null || results.isEmpty()){
-    		Query query2 =session.createQuery("from Academy a where str(a.tax_id) like :tax_id")
-        			.setParameter("tax_id", str);
-    		results = query2.list();
-    	}
-    	
-    	session.getTransaction().commit();
-    	
-    	if(results == null || results.isEmpty()){
-    		return null;
-    	}else{
-    		return results;
-    	}
-    		
+		if (a.getAcademy_id() != null) {
+			Query query = session.createQuery("from Academy a where a.academy_id = :id").setParameter("id",
+					a.getAcademy_id());
+
+			Academy la = (Academy) query.uniqueResult();
+			session.getTransaction().commit();
+
+			List<Academy> l = new ArrayList<Academy>();
+			l.add(la);
+			return l;
+		} else {
+			Query query = session.createQuery("from Academy a where str(a.name) like :name").setParameter("name",
+					a.getName());
+
+			List<Academy> results = query.list();
+
+			if (results == null || results.isEmpty()) {
+				Query query2 = session.createQuery("from Academy a where str(a.tax_id) like :tax_id").setParameter(
+						"tax_id", a.getTax_id());
+				results = query2.list();
+			}
+
+			session.getTransaction().commit();
+
+			if (results == null || results.isEmpty()) {
+				return null;
+			} else {
+				return results;
+			}
+		}
+
     }
     
     
@@ -149,7 +126,8 @@ public class AcademyDAOImpl implements IAcademyDAO {
      * 
      * @param academy to delete
      */
-    public void delete(Academy academy){
+    @Override
+	public void delete(Academy academy){
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     	session.beginTransaction();
     	

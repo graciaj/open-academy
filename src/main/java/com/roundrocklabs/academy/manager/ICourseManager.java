@@ -1,26 +1,17 @@
 package com.roundrocklabs.academy.manager;
 
-import java.sql.Date;
 import java.util.List;
 
 import com.roundrocklabs.academy.model.Course;
 
 public interface ICourseManager {
+	
+	public Course create(Course c);
 
-	public Integer create(Course course);
+	public void update(Course c);
 	
-	public Integer create(String name, String description);
+	public List<Course> read(Course c);
 	
-	public Integer create(String name);
-	
-	public Integer create(String name, String description, Date start_date);
-	
-	public void update(Course course);
-	
-	public Course readByID(Integer id);
-	
-	public List<Course> readByName(String str);
-	
-	public void delete(Course course);
+	public void delete(Course c);
 	
 }
