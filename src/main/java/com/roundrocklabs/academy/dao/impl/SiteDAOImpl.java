@@ -1,6 +1,5 @@
 package com.roundrocklabs.academy.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -15,7 +14,6 @@ import com.roundrocklabs.academy.utils.HibernateUtil;
 public class SiteDAOImpl implements ISiteDAO {
 	private static final Log log = LogFactory.getLog(SiteDAOImpl.class);
 
-	@Override
 	public Site create(Site site) {
 		log.debug("site created from: " + site.toString());
 
@@ -27,7 +25,6 @@ public class SiteDAOImpl implements ISiteDAO {
 		return site;
 	}
 
-	@Override
 	public List<Site> read(Site s) {
 		log.debug("Reading a Site by id: " + s.toString());
 
@@ -37,12 +34,9 @@ public class SiteDAOImpl implements ISiteDAO {
 		if (s.getSite_id() != null) {
 			Query query = session.createQuery("from Site s where s.site_id = :id").setParameter("id", s.getSite_id());
 
-			Site site = (Site) query.uniqueResult();
+			List<Site> sites = query.list();
 			session.getTransaction().commit();
-
-			List<Site> sl = new ArrayList();
-			sl.add(site);
-			return sl;
+			return sites;
 		} else {
 			Query query = session.createQuery("from Site s where str(s.name) like :name").setParameter("name",
 					s.getName());
@@ -67,7 +61,6 @@ public class SiteDAOImpl implements ISiteDAO {
 	}
 
 
-	@Override
 	public void update(Site site) {
 		log.debug("updating site: " + site.toString());
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -103,7 +96,6 @@ public class SiteDAOImpl implements ISiteDAO {
 
 	}
 
-	@Override
 	public void delete(Site site) {
 		log.debug("Deleting site: " + site.toString());
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();

@@ -76,7 +76,7 @@ public class AcademyManagerTest  {
 		am.update(academy);
 		
 		List<Academy> savedAcademy = am.read(academy);
-		assert(academy.equals(savedAcademy));
+		assert(academy.equals(savedAcademy.get(0)));
 		
 		log.debug("updateAcademy : original : " + academy.toString());
 		log.debug("updateAcademy : saved : " + savedAcademy.toString());
@@ -88,9 +88,9 @@ public class AcademyManagerTest  {
 		IAcademyManager am = new AcademyManagerImpl();
 		Academy a = new Academy();
 		a.setAcademy_id(24);
-		Academy academy = (Academy) am.read(a);
-		assert(academy != null);
-		log.debug("getAcademyByID : " + academy.toString());
+		List<Academy> academies = am.read(a);
+		assert(academies != null);
+		log.debug("getAcademyByID : " + academies.get(0).toString());
 	}
 
 	
@@ -150,8 +150,7 @@ public class AcademyManagerTest  {
 		log.debug("deleteAcademy : " + savedAcademy.toString());
 		
 		am.delete(aRead);
-		List<Academy> deletedAcademy = am.read(aRead);
-		assert(deletedAcademy == null);
+		assert(am.read(aRead).get(0) == null);
 		
 	}
 }

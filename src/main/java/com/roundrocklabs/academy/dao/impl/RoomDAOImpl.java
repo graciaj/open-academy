@@ -1,6 +1,5 @@
 package com.roundrocklabs.academy.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -15,7 +14,6 @@ import com.roundrocklabs.academy.utils.HibernateUtil;
 public class RoomDAOImpl implements IRoomDAO {
 	private static final Log log = LogFactory.getLog(RoomDAOImpl.class);
 
-	@Override
 	public Room create(Room room) {
 		log.debug("room created from: " + room.toString());
 
@@ -27,7 +25,6 @@ public class RoomDAOImpl implements IRoomDAO {
 		return room;
 	}
 
-	@Override
 	public List<Room> read(Room r) {
 		log.debug("Reading a Room: " + r.toString());
 
@@ -36,11 +33,9 @@ public class RoomDAOImpl implements IRoomDAO {
 
 		if (r.getRoom_id() != null) {
 			Query query = session.createQuery("from Room r where r.room_id = :id").setParameter("id", r.getRoom_id());
-			Room room = (Room) query.uniqueResult();
+			List<Room> rooms = query.list();
 			session.getTransaction().commit();
-			List<Room> rl = new ArrayList();
-			rl.add(r);
-			return rl;
+			return rooms;
 		} else {
 			Query query = session.createQuery("from Room r where str(r.name) like :name").setParameter("name",
 					r.getName());
@@ -64,8 +59,7 @@ public class RoomDAOImpl implements IRoomDAO {
 
 	}
 
-
-	@Override
+	
 	public void update(Room room) {
 		log.debug("updating room: " + room.toString());
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -89,7 +83,6 @@ public class RoomDAOImpl implements IRoomDAO {
 	}
 
 
-	@Override
 	public void delete(Room room) {
 		log.debug("Deleting room: " + room.toString());
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();

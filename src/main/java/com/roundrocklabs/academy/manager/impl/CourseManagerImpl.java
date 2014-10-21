@@ -11,22 +11,18 @@ public class CourseManagerImpl implements ICourseManager {
 
 	private ICourseDAO courseDAO = new CourseDAOImpl();
 	
-	@Override
 	public Course create(Course course) {
 		return courseDAO.create(course);
 	}
 
-	@Override
 	public void update(Course course) {
 		courseDAO.update(course);
 	}
 
-	@Override
 	public List<Course> read(Course c) {
 		return courseDAO.read(c);
 	}
 
-	@Override
 	public void delete(Course course) {
 		courseDAO.delete(course);
 	}

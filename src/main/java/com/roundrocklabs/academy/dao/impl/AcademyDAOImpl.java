@@ -29,7 +29,6 @@ public class AcademyDAOImpl implements IAcademyDAO {
 	 * @param academy	Academy object to create
 	 * @return 	Academy id as stored in the database
 	 */
-	@Override
 	public Academy create(Academy academy) {
 		log.debug("academy created from academy: " + academy.toString());
 
@@ -49,7 +48,6 @@ public class AcademyDAOImpl implements IAcademyDAO {
      * @param academy	Academy object to change. The academy_id must be the one that needs
      * 						to be changed and it must exist in the database
      */
-    @Override
 	public void update(Academy academy){
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     	session.beginTransaction();
@@ -73,7 +71,6 @@ public class AcademyDAOImpl implements IAcademyDAO {
 	 * 
 	 * @return list of academies
 	 */
-	@Override
 	public List<Academy> read(Academy a) {
 		
 		if (a == null){
@@ -126,7 +123,6 @@ public class AcademyDAOImpl implements IAcademyDAO {
      * 
      * @param academy to delete
      */
-    @Override
 	public void delete(Academy academy){
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     	session.beginTransaction();

@@ -4,10 +4,8 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-//import org.testng.annotations.BeforeMethod;
-//import org.testng.annotations.Test;
-import org.junit.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import com.roundrocklabs.academy.dao.IAcademyDAO;
 import com.roundrocklabs.academy.dao.impl.AcademyDAOImpl;
@@ -29,11 +27,12 @@ public class AcademyDAOImplTest {
 		IAcademyDAO ad = new AcademyDAOImpl();
 		a = ad.create(a);
 		assert (a != null);
+		assert (a.getAcademy_id() > 0);
 		log.info("academy created returned id " + a.getAcademy_id());
 		log.info(a.toString());
 
-		Academy a2 = (Academy) ad.read(a);
-		assert(a.equals(a2));
+		List<Academy> a2 = ad.read(a);
+		assert(a.equals(a2.get(0)));
 		log.info("read academy object: "+a2.toString());
 	}
 
@@ -50,8 +49,8 @@ public class AcademyDAOImplTest {
 		log.info("academy created returned id " + a.toString());
 		log.info(a.toString());
 
-		Academy a2 = (Academy) ad.read(a);
-		assert(a.equals(a2));
+		List<Academy> a2 = ad.read(a);
+		assert(a.equals(a2.get(0)));
 		log.info("read academy object: "+a2.toString());
 	}
 
@@ -68,8 +67,8 @@ public class AcademyDAOImplTest {
 		log.info("academy created returned id " + a.getAcademy_id());
 		log.info(a.toString());
 
-		Academy a2 = (Academy) ad.read(a);
-		assert(a.equals(a2));
+		List<Academy> a2 = ad.read(a);
+		assert(a.equals(a2.get(0)));
 		log.info("read academy object: " + a2.toString());
 	}
 
@@ -86,8 +85,7 @@ public class AcademyDAOImplTest {
 		log.info(a.toString());
 		
 		ad.delete(a);
-		Academy a2 = (Academy) ad.read(a);
-		assert(a2 == null);
+		assert(ad.read(a).get(0) == null);
 	}
 
 	@Test
@@ -126,16 +124,17 @@ public class AcademyDAOImplTest {
 		log.info("academy created returned id " + a.getAcademy_id());
 		log.info(a.toString());
 
-		Academy a2 = (Academy) ad.read(a);
-		a2.setTax_id(Rand.getRandomTaxID());
-		ad.update(a2);
+		List<Academy> a2 = ad.read(a);
+		Academy readA = a2.get(0);
+		readA.setTax_id(Rand.getRandomTaxID());
+		ad.update(readA);
 		
-		Academy a3 = (Academy) ad.read(a);
-		assert(a2.equals(a3));
+		List<Academy> a3 = ad.read(a);
+		assert(readA.equals(a3.get(0)));
 		log.info("read academy object: " + a2.toString());
 	}
 	
-	@Before
+	@BeforeMethod
 	public void setup(){
 		log.info("\n\n#########################################################################################");
 	}

@@ -21,7 +21,6 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * @param course to create
 	 * @return 	Course id, as stored in the database
 	 */
-	@Override
 	public Course create(Course course) {
 		log.debug("Course created from course: " + course.toString());
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -38,7 +37,6 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * 
 	 * @param course object
 	 */
-	@Override
 	public void update(Course course) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
@@ -72,7 +70,6 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * @param name or partial
 	 * @return List of courses that match the string or null if none found
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
 	public List<Course> read(Course course) {
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -113,7 +110,6 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * 
 	 * @param object to delete
 	 */
-	@Override
 	public void delete(Course course) {
     	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     	session.beginTransaction();
