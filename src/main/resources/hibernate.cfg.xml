@@ -8,9 +8,9 @@
     <session-factory>
 
         <!-- Database connection settings -->
-        <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.url">jdbc:postgresql://localhost:5432/rrl</property>
-        <property name="connection.username">rrladmins</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost/oa</property>
+        <property name="connection.username">admin</property>
         <property name="connection.password">admin</property>
 
         <!-- JDBC connection pool (use the built-in) -->
@@ -23,7 +23,7 @@
 		<property name="hibernate.c3p0.acquire_increment">2</property>
 
         <!-- SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 
         <!-- Enable Hibernate's automatic session context management -->
         <property name="current_session_context_class">thread</property>

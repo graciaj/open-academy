@@ -6,21 +6,15 @@
 
 package com.roundrocklabs.academy.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.Table;
-import javax.persistence.InheritanceType;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name="person")
-@Inheritance(strategy=InheritanceType.JOINED)
 public abstract class Person {
 	
-	Integer person_id;
+	String person_id;
 	String first_name;	
 	String middle_name;
 	String last_name;	
@@ -38,12 +32,12 @@ public abstract class Person {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(nullable = false)
-	public Integer getPerson_id() {
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+	public String getPerson_id() {
 		return person_id;
 	}
-	public void setPerson_id(Integer person_id) {
+	public void setPerson_id(String person_id) {
 		this.person_id = person_id;
 	}
 	

@@ -8,19 +8,21 @@ package com.roundrocklabs.academy.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 
 @Entity
-@Table(name = "site")
 public class Site {
 
 	Academy academy;
-	Integer site_id;
+	String site_id;
 	String name;
 	String description;
 	String address1;
@@ -30,9 +32,7 @@ public class Site {
 	String zip;
 	
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="academy_id", referencedColumnName="academy_id")
-	@OrderBy("name ASC")
+	@ManyToOne
 	public Academy getAcademy() {
 		return academy;
 	}
@@ -41,11 +41,13 @@ public class Site {
 	}	
 	
 	
-	@Id
-	public Integer getSite_id() {
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+	public String getSite_id() {
 		return site_id;
 	}
-	public void setSite_id(Integer site_id) {
+	public void setSite_id(String site_id) {
 		this.site_id = site_id;
 	}	
 

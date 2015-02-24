@@ -9,6 +9,10 @@ package com.roundrocklabs.academy.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
@@ -21,23 +25,24 @@ import com.roundrocklabs.academy.utils.HibernateUtil;
 
 public class AcademyDAOImpl implements IAcademyDAO {
 	private static final Log log = LogFactory.getLog(AcademyDAOImpl.class);
+	private static EntityManagerFactory entityManagerFactory = 
+			Persistence.createEntityManagerFactory("oaPu");
+	private static EntityManager entityManager;
 	
-	
+//	public AcademyDAOImpl(){}
 	/**
 	 * Saves the Academy object to the database
 	 * 
 	 * @param academy	Academy object to create
-	 * @return 	Academy id as stored in the database
+	 * 
 	 */
-	public Academy create(Academy academy) {
+	public void create(Academy academy) {
 		log.debug("academy created from academy: " + academy.toString());
-
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-		Integer id = (Integer) session.save(academy);
-		session.getTransaction().commit();
-		academy.setAcademy_id(id);
-		return academy;
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		entityManager.persist(academy);
+		entityManager.getTransaction().commit();
+		entityManager.close();
 	}
 
     
@@ -49,10 +54,10 @@ public class AcademyDAOImpl implements IAcademyDAO {
      * 						to be changed and it must exist in the database
      */
 	public void update(Academy academy){
-    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-    	session.beginTransaction();
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
     	
-    	Academy academy2 = (Academy) session.load(Academy.class, academy.getAcademy_id());
+    	Academy academy2 = (Academy) entityManager.find(Academy.class, academy.getAcademy_id());
     	
     	if(!academy.getName().isEmpty() || !(academy == null))
     		academy2.setName( academy.getName() );
@@ -60,7 +65,8 @@ public class AcademyDAOImpl implements IAcademyDAO {
     	if(!academy.getTax_id().isEmpty() || !(academy.getTax_id() == null))
     		academy2.setTax_id(academy.getTax_id());
     	
-    	session.getTransaction().commit();
+    	entityManager.getTransaction().commit();
+    	entityManager.close();
     }
     
     
@@ -81,33 +87,25 @@ public class AcademyDAOImpl implements IAcademyDAO {
 			return null;
 		}
 		
-    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-    	session.beginTransaction();
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
     
 		if (a.getAcademy_id() != null) {
-			Query query = session.createQuery("from Academy a where a.academy_id = :id").setParameter("id",
-					a.getAcademy_id());
-
-			Academy la = (Academy) query.uniqueResult();
-			session.getTransaction().commit();
-
+			Academy la = entityManager.find(Academy.class, a.getAcademy_id());
+			entityManager.getTransaction().commit();
+			entityManager.close();
 			List<Academy> l = new ArrayList<Academy>();
 			l.add(la);
 			return l;
+			
 		} else {
-			Query query = session.createQuery("from Academy a where str(a.name) like :name").setParameter("name",
-					a.getName());
-
-			List<Academy> results = query.list();
+			List<Academy> results = (List<Academy>) entityManager.find(Academy.class, a.getName());
 
 			if (results == null || results.isEmpty()) {
-				Query query2 = session.createQuery("from Academy a where str(a.tax_id) like :tax_id").setParameter(
-						"tax_id", a.getTax_id());
-				results = query2.list();
+				results = (List<Academy>) entityManager.find(Academy.class, a.getTax_id());
 			}
-
-			session.getTransaction().commit();
-
+			entityManager.getTransaction().commit();
+			entityManager.close();
 			if (results == null || results.isEmpty()) {
 				return null;
 			} else {
@@ -124,13 +122,12 @@ public class AcademyDAOImpl implements IAcademyDAO {
      * @param academy to delete
      */
 	public void delete(Academy academy){
-    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-    	session.beginTransaction();
-    	
-    	Academy db_academy = (Academy) session.load(Academy.class, academy.getAcademy_id());
-    	session.delete(db_academy);
-    	
-    	session.getTransaction().commit();
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		// em does not contain academy, maybe just merge then remove will work, but leaving this as it in case is needed later.
+    	entityManager.remove(entityManager.contains(academy) ? academy : entityManager.merge(academy));
+    	entityManager.getTransaction().commit();
+    	entityManager.close();
     }
     
 }

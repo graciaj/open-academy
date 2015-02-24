@@ -11,7 +11,6 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="student")
 public class Student extends Person {
 	
 	Integer student_id;	

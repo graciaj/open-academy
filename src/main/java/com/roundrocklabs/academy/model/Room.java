@@ -15,12 +15,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
-@Table(name="room")
 public class Room {
 	
 	
-	Integer room_id;
+	String room_id;
 	String name;
 	String description;
 	Integer size;
@@ -28,13 +29,13 @@ public class Room {
 	Date retire_date;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(nullable = false, unique = true)
-	public Integer getRoom_id() {
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+	public String getRoom_id() {
 		return room_id;
 	}
 
-	public void setRoom_id(Integer room_id) {
+	public void setRoom_id(String room_id) {
 		this.room_id = room_id;
 	}
 

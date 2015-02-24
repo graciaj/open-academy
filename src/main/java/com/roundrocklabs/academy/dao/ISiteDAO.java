@@ -6,7 +6,7 @@ import com.roundrocklabs.academy.model.Site;
 
 public interface ISiteDAO {
 
-	public Site create(Site a);
+	public void create(Site a);
 	
 	public void update(Site a);
 	

@@ -7,22 +7,19 @@ package com.roundrocklabs.academy.model;
 
 
 import java.util.List;
-
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+
 
 @Entity
-@Table(name = "academy")
 public class Academy {
 
 	
-	private Integer academy_id;
+	private String academy_id;
 	String name;
 	String tax_id;
 	private List<Site> sites;
@@ -41,12 +38,12 @@ public class Academy {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(nullable = false, unique = true)
-	public Integer getAcademy_id() {
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+	public String getAcademy_id() {
 		return academy_id;
 	}
-	public void setAcademy_id(Integer academy_id) {
+	public void setAcademy_id(String academy_id) {
 		this.academy_id = academy_id;
 	}
 	
@@ -67,7 +64,7 @@ public class Academy {
 	}
 	
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "academy")
+	@OneToMany(mappedBy = "academy", cascade = CascadeType.PERSIST)
 	public List<Site> getSites() {
 		return sites;
 	}
@@ -75,40 +72,10 @@ public class Academy {
 		this.sites = sites;
 	}
 
-
-	@Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj == null || obj.getClass() != this.getClass()) {
-            return false;
-        }
-
-        Academy guest = (Academy) obj;
-        return (this.academy_id != null 
-        		&& guest.academy_id != null
-        		&& (this.academy_id == guest.academy_id || (this.academy_id.equals(guest.academy_id))))
-        		&& (this.name == guest.name  || (this.name != null && this.name.equals(guest.getName())))
-                && (this.tax_id == guest.tax_id || (this.tax_id != null && this.tax_id.equals(guest.getTax_id())));
-    }
-   
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result
-                + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + academy_id;
-        result = prime * result
-                + ((tax_id == null) ? 0 : tax_id.hashCode());
-        return result;
-    }
-
-    @Override
-    public String toString(){
-    	return String.format("Academy [academy_id: "+ String.valueOf(this.academy_id) + 
-    			", name: " + this.name + ", tax_id: " + this.tax_id + "]");
-    }
+	
+	public boolean equals(Academy a){
+		return (this.getAcademy_id().equals(a.getAcademy_id()) &&
+				this.getName().equals(a.getName()));
+	}
 	
 }

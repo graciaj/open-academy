@@ -25,12 +25,7 @@ public class AcademyDAOImplTest {
 		a.setTax_id(Rand.getRandomTaxID());
 
 		IAcademyDAO ad = new AcademyDAOImpl();
-		a = ad.create(a);
-		assert (a != null);
-		assert (a.getAcademy_id() > 0);
-		log.info("academy created returned id " + a.getAcademy_id());
-		log.info(a.toString());
-
+		ad.create(a);
 		List<Academy> a2 = ad.read(a);
 		assert(a.equals(a2.get(0)));
 		log.info("read academy object: "+a2.toString());
@@ -43,12 +38,9 @@ public class AcademyDAOImplTest {
 		Academy a = new Academy();
 		a.setName(Rand.getRandomName());
 		a.setTax_id(Rand.getRandomTaxID());
+		
 		IAcademyDAO ad = new AcademyDAOImpl();
-		a = ad.create(a);
-		assert (a != null);
-		log.info("academy created returned id " + a.toString());
-		log.info(a.toString());
-
+		ad.create(a);
 		List<Academy> a2 = ad.read(a);
 		assert(a.equals(a2.get(0)));
 		log.info("read academy object: "+a2.toString());
@@ -60,13 +52,9 @@ public class AcademyDAOImplTest {
 		log.info(Thread.currentThread().getStackTrace()[1].getMethodName());
 		Academy a = new Academy();
 		a.setName(Rand.getRandomName());
+		
 		IAcademyDAO ad = new AcademyDAOImpl();
-		a = ad.create(a);
-		assert (a != null);
-
-		log.info("academy created returned id " + a.getAcademy_id());
-		log.info(a.toString());
-
+		ad.create(a);
 		List<Academy> a2 = ad.read(a);
 		assert(a.equals(a2.get(0)));
 		log.info("read academy object: " + a2.toString());
@@ -78,12 +66,9 @@ public class AcademyDAOImplTest {
 		log.info(Thread.currentThread().getStackTrace()[1].getMethodName());
 		Academy a = new Academy();
 		a.setName(Rand.getRandomName());
-		IAcademyDAO ad = new AcademyDAOImpl();
-		a = ad.create(a);
-		assert (a != null);
-		log.info("academy created returned id " + a.getAcademy_id());
-		log.info(a.toString());
 		
+		IAcademyDAO ad = new AcademyDAOImpl();
+		ad.create(a);
 		ad.delete(a);
 		assert(ad.read(a).get(0) == null);
 	}
@@ -93,12 +78,9 @@ public class AcademyDAOImplTest {
 		log.info(Thread.currentThread().getStackTrace()[1].getMethodName());
 		Academy a = new Academy();
 		a.setName(Rand.getRandomName());
+		
 		IAcademyDAO ad = new AcademyDAOImpl();
-		a = ad.create(a);
-		assert (a != null);
-
-		log.info("academy created returned id " + a.getAcademy_id());
-		log.info(a.toString());
+		ad.create(a);
 
 		List<Academy> a2 = ad.read(a);
 		for(Academy ac : a2){
@@ -117,13 +99,9 @@ public class AcademyDAOImplTest {
 		log.info(Thread.currentThread().getStackTrace()[1].getMethodName());
 		Academy a = new Academy();
 		a.setName(Rand.getRandomName());
+		
 		IAcademyDAO ad = new AcademyDAOImpl();
-		a = ad.create(a);
-		assert (a != null);
-
-		log.info("academy created returned id " + a.getAcademy_id());
-		log.info(a.toString());
-
+		ad.create(a);
 		List<Academy> a2 = ad.read(a);
 		Academy readA = a2.get(0);
 		readA.setTax_id(Rand.getRandomTaxID());

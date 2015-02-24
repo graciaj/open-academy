@@ -6,7 +6,7 @@ import com.roundrocklabs.academy.model.Academy;
 
 public interface IAcademyManager {
 	
-	public Academy create(Academy a);
+	public void create(Academy a);
 
 	public void update(Academy a);
 	

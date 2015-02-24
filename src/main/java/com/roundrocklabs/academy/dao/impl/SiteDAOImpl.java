@@ -1,6 +1,11 @@
 package com.roundrocklabs.academy.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -13,44 +18,40 @@ import com.roundrocklabs.academy.utils.HibernateUtil;
 
 public class SiteDAOImpl implements ISiteDAO {
 	private static final Log log = LogFactory.getLog(SiteDAOImpl.class);
-
-	public Site create(Site site) {
+	private static EntityManagerFactory entityManagerFactory = 
+			Persistence.createEntityManagerFactory("oaPu");
+	private static EntityManager entityManager;
+	
+	public void create(Site site) {
 		log.debug("site created from: " + site.toString());
-
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-		Integer id = (Integer) session.save(site);
-		session.getTransaction().commit();
-		site.setSite_id(id);
-		return site;
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		entityManager.persist(site);
+		entityManager.getTransaction().commit();
+		entityManager.close();
 	}
 
 	public List<Site> read(Site s) {
 		log.debug("Reading a Site by id: " + s.toString());
-
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
 		if (s.getSite_id() != null) {
-			Query query = session.createQuery("from Site s where s.site_id = :id").setParameter("id", s.getSite_id());
-
-			List<Site> sites = query.list();
-			session.getTransaction().commit();
-			return sites;
+			Site s2 = entityManager.find(Site.class, s.getSite_id());
+			entityManager.getTransaction().commit();
+			entityManager.close();
+			List<Site> ls = new ArrayList<Site>();
+			ls.add(s2);
+			return ls;
 		} else {
-			Query query = session.createQuery("from Site s where str(s.name) like :name").setParameter("name",
-					s.getName());
-
-			List<Site> results = query.list();
+			
+			List<Site> results = (List<Site>) entityManager.find(Site.class, s.getName());
 
 			if (results == null || results.isEmpty()) {
-				Query query2 = session.createQuery("from Site s where str(s.description) like :description")
-						.setParameter("description", s.getDescription());
-				results = query2.list();
+				results = (List<Site>) entityManager.find(Site.class, s.getDescription());
 			}
-
-			session.getTransaction().commit();
-
+			entityManager.getTransaction().commit();
+			entityManager.close();
 			if (results == null || results.isEmpty()) {
 				return null;
 			} else {
@@ -63,10 +64,9 @@ public class SiteDAOImpl implements ISiteDAO {
 
 	public void update(Site site) {
 		log.debug("updating site: " + site.toString());
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-
-		Site site2 = (Site) session.load(Site.class, site.getSite_id());
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		Site site2 = (Site) entityManager.find(Site.class, site.getSite_id());
 
 		if (!(site == null) || !site.getName().isEmpty())
 			site2.setName(site.getName());
@@ -91,20 +91,19 @@ public class SiteDAOImpl implements ISiteDAO {
 
 		if (!(site.getZip() == null) || !(site.getZip().isEmpty()))
 			site2.setZip(site.getZip());
-
-		session.getTransaction().commit();
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
 
 	}
 
 	public void delete(Site site) {
 		log.debug("Deleting site: " + site.toString());
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-
-		Site db_site = (Site) session.load(Site.class, site.getSite_id());
-		session.delete(db_site);
-
-		session.getTransaction().commit();
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		entityManager.remove(site);
+		entityManager.getTransaction().commit();
+		entityManager.close();
 	}
 
 }
