@@ -75,12 +75,13 @@ public class AcademyManagerTest  {
 		
 		savedAcademy.get(0).setName("second update");
 		savedAcademy.get(0).setTax_id("second testng");
+		am.update(savedAcademy.get(0));
 		
 		List<Academy> secondList = am.read(savedAcademy.get(0));
 		
-		log.debug("updateAcademy : original : " + academy.toString());
-		log.debug("updateAcademy: saved: " + savedAcademy.get(0).toString());
-		log.debug("updateAcademy : second : " + secondList.get(0).toString());
+		log.debug("updateAcademy : original : " + academy.getName() + ":" + academy.getAcademy_id());
+		log.debug("updateAcademy: saved: " + savedAcademy.get(0).getName() + ":" + savedAcademy.get(0).getAcademy_id() );
+		log.debug("updateAcademy : second : " + secondList.get(0).getName() + ":" + secondList.get(0).getAcademy_id());
 
 	}
 	

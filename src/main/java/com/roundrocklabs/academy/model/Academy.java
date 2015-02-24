@@ -79,6 +79,5 @@ public class Academy {
 		return (this.getAcademy_id().equals(a.getAcademy_id()) &&
 				this.getName().equals(a.getName()));
 	}
-
 		
 }
