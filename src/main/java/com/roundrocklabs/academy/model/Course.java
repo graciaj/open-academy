@@ -20,7 +20,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Course {
  
-	private Integer course_id;
+	private String course_id;
 	String name;
 	String description;
 	Date start_date;
@@ -30,10 +30,10 @@ public class Course {
 	@Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-	public Integer getCourse_id() {
+	public String getCourse_id() {
 		return course_id;
 	}
-	public void setCourse_id(Integer id) {
+	public void setCourse_id(String id) {
 		this.course_id = id;
 	}
 	
