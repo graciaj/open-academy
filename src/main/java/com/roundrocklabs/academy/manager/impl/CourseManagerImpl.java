@@ -11,8 +11,8 @@ public class CourseManagerImpl implements ICourseManager {
 
 	private ICourseDAO courseDAO = new CourseDAOImpl();
 	
-	public Course create(Course course) {
-		return courseDAO.create(course);
+	public void create(Course course) {
+		courseDAO.create(course);
 	}
 
 	public void update(Course course) {

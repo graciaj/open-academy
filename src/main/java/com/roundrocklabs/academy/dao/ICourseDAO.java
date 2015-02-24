@@ -6,7 +6,7 @@ import com.roundrocklabs.academy.model.Course;
 
 public interface ICourseDAO {
 
-	public Course create(Course a);
+	public void create(Course a);
 	
 	public void update(Course a);
 	

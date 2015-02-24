@@ -2,6 +2,10 @@ package com.roundrocklabs.academy.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
@@ -13,42 +17,38 @@ import com.roundrocklabs.academy.utils.HibernateUtil;
 
 public class RoomDAOImpl implements IRoomDAO {
 	private static final Log log = LogFactory.getLog(RoomDAOImpl.class);
-
-	public Room create(Room room) {
+	private static EntityManagerFactory entityManagerFactory = 
+			Persistence.createEntityManagerFactory("oaPu");
+	private static EntityManager entityManager;
+	
+	public void create(Room room) {
 		log.debug("room created from: " + room.toString());
-
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-		Integer id = (Integer) session.save(room);
-		session.getTransaction().commit();
-		room.setRoom_id(id);
-		return room;
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		entityManager.persist(room);
+		entityManager.getTransaction().commit();
+		entityManager.close();
 	}
 
 	public List<Room> read(Room r) {
 		log.debug("Reading a Room: " + r.toString());
-
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
 
 		if (r.getRoom_id() != null) {
-			Query query = session.createQuery("from Room r where r.room_id = :id").setParameter("id", r.getRoom_id());
-			List<Room> rooms = query.list();
-			session.getTransaction().commit();
+			List<Room> rooms = (List<Room>) entityManager.find(Room.class, r.getRoom_id());
+			entityManager.getTransaction().commit();
+			entityManager.close();
 			return rooms;
 		} else {
-			Query query = session.createQuery("from Room r where str(r.name) like :name").setParameter("name",
-					r.getName());
 
-			List<Room> results = query.list();
-
+			List<Room> results = (List<Room>) entityManager.find(Room.class, r.getName());
 			if (results == null || results.isEmpty()) {
-				Query query2 = session.createQuery("from Room r where str(r.description) like :description")
-						.setParameter("description", r.getDescription());
-				results = query2.list();
+				results = (List<Room>) entityManager.find(Room.class, r.getDescription());
 			}
 
-			session.getTransaction().commit();
+			entityManager.getTransaction().commit();
+			entityManager.close();
 
 			if (results == null || results.isEmpty()) {
 				return null;

@@ -3,6 +3,10 @@ package com.roundrocklabs.academy.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
@@ -14,6 +18,9 @@ import com.roundrocklabs.academy.utils.HibernateUtil;
 
 public class CourseDAOImpl implements ICourseDAO {
 	private static final Log log = LogFactory.getLog(CourseDAOImpl.class);
+	private static EntityManagerFactory entityManagerFactory = 
+			Persistence.createEntityManagerFactory("oaPu");
+	private static EntityManager entityManager;
 	
 	/**
 	 * Saves the object to the database
@@ -21,14 +28,13 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * @param course to create
 	 * @return 	Course id, as stored in the database
 	 */
-	public Course create(Course course) {
+	public void create(Course course) {
 		log.debug("Course created from course: " + course.toString());
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-		Integer id = (Integer) session.save(course);
-		session.getTransaction().commit();
-		course.setCourse_id(id);
-		return course;
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		entityManager.persist(course);
+		entityManager.getTransaction().commit();
+		entityManager.close();
 	}
 
 	
@@ -38,10 +44,10 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * @param course object
 	 */
 	public void update(Course course) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
 		
-		Course course2 = (Course) session.load(Course.class, course.getCourse_id());
+		Course course2 = (Course) entityManager.find(Course.class, course.getCourse_id());
 		
 		if( !course.getName().isEmpty() || !(course.getName() == null) ){
 			course2.setName(course.getName());
@@ -59,8 +65,8 @@ public class CourseDAOImpl implements ICourseDAO {
 			course2.setRetire_date(course.getRetire_date());
 		}
 		
-		session.getTransaction().commit();
-		
+		entityManager.getTransaction().commit();
+		entityManager.close();
 	}
 
 	
@@ -72,28 +78,26 @@ public class CourseDAOImpl implements ICourseDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Course> read(Course course) {
-    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-    	session.beginTransaction();
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
 
 		if (course.getCourse_id() != null) {
-    		Course c = (Course) session.load(Course.class, course.getCourse_id());
-        	session.getTransaction().commit();
+    		Course c = (Course) entityManager.find(Course.class, course.getCourse_id());
+    		entityManager.getTransaction().commit();
+    		entityManager.close();
 			List<Course> cl = new ArrayList<Course>();
     		cl.add(c);
     		return cl;
-    	}else{
-        	Query query = session.createQuery("from course c where str(c.name) like :name")
-        			.setParameter("name", course.getName());
-        	
-        	List<Course> results = query.list();
+
+		}else{        	
+        	List<Course> results = (List<Course>) entityManager.find(Course.class, course.getName());
         	
         	if(results == null || results.isEmpty()){
-        		Query query2 =session.createQuery("from course c where str(c.description) like :desc")
-            			.setParameter("desc", course.getDescription());
-        		results = query2.list();
+        		results = (List<Course>) entityManager.find(Course.class, course.getDescription());
         	}
         	
-        	session.getTransaction().commit();
+        	entityManager.getTransaction().commit();
+        	entityManager.close();
         	
         	if(results == null || results.isEmpty()){
         		return null;
@@ -111,11 +115,11 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * @param object to delete
 	 */
 	public void delete(Course course) {
-    	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-    	session.beginTransaction();
-    	Course db_course = (Course) session.load(Course.class, course.getCourse_id());
-    	session.delete(db_course);
-    	session.getTransaction().commit();
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		entityManager.remove(entityManager.contains(course) ? course : entityManager.merge(course));
+		entityManager.getTransaction().commit();
+		entityManager.close();
 	}
 
 

@@ -11,8 +11,8 @@ public class RoomManagerImpl implements IRoomManager {
 
 	private IRoomDAO roomDAO = new RoomDAOImpl();
 
-	public Room create(Room r) {
-		return roomDAO.create(r);
+	public void create(Room r) {
+		roomDAO.create(r);
 	}
 
 	public List<Room> read(Room r) {

@@ -6,7 +6,7 @@ import com.roundrocklabs.academy.model.Course;
 
 public interface ICourseManager {
 	
-	public Course create(Course c);
+	public void create(Course c);
 
 	public void update(Course c);
 	

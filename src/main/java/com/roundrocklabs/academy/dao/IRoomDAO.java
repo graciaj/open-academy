@@ -6,7 +6,7 @@ import com.roundrocklabs.academy.model.Room;
 
 public interface IRoomDAO {
 
-	public Room create(Room a);
+	public void create(Room a);
 	
 	public void update(Room a);
 	
