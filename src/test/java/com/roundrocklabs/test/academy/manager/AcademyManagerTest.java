@@ -15,21 +15,19 @@ import com.roundrocklabs.test.academy.utils.Rand;
 
 
 public class AcademyManagerTest  {
-	private static final Log log = LogFactory.getLog(AcademyManagerTest.class);
+	private static final Log log = LogFactory.getLog(AcademyManagerTest.class);	
 	
 	@BeforeMethod
 	public void setup(){
-		log.info("\n\nBeginning Method --------------------------------------------------->>");
+		log.info("\n\nAcademyManagerTest Beginning Method --------------------------------------------------->>");
 	}
 	
 	@Test(groups = { "regression" })
 	public void createAcademyByNameTax() {
-		
-		IAcademyManager am = new AcademyManagerImpl();
 		String name = Rand.getRandomName();
 		String tax = Rand.getRandomTaxID();
 		Academy academy = new Academy(name, tax);
-		
+		IAcademyManager am = new AcademyManagerImpl();
 		am.create(academy);
 		
 		List<Academy> savedAcademy = am.read(academy);
@@ -47,10 +45,9 @@ public class AcademyManagerTest  {
 	
 	@Test(groups = { "regression" })
 	public void createAcademyByName() {
-		IAcademyManager am = new AcademyManagerImpl();
 		String name = Rand.getRandomName();
 		Academy academy = new Academy(name);
-		
+		IAcademyManager am = new AcademyManagerImpl();
 		am.create(academy);
 		
 		List<Academy> savedAcademy = am.read(academy);
@@ -67,38 +64,34 @@ public class AcademyManagerTest  {
 	
 	@Test(groups = { "regression" })
 	public void updateAcademy() {
-		IAcademyManager am = new AcademyManagerImpl();
 		Academy academy = new Academy();
-		
-		academy.setAcademy_id("28");
+		IAcademyManager am = new AcademyManagerImpl();		
 		academy.setName("updated_by_testng");
 		academy.setTax_id("testng");
-		am.update(academy);
-		
+		am.create(academy);
+
 		List<Academy> savedAcademy = am.read(academy);
 		assert(academy.equals(savedAcademy.get(0)));
 		
+		savedAcademy.get(0).setName("second update");
+		savedAcademy.get(0).setTax_id("second testng");
+		
+		List<Academy> secondList = am.read(savedAcademy.get(0));
+		
 		log.debug("updateAcademy : original : " + academy.toString());
-		log.debug("updateAcademy : saved : " + savedAcademy.toString());
+		log.debug("updateAcademy: saved: " + savedAcademy.get(0).toString());
+		log.debug("updateAcademy : second : " + secondList.get(0).toString());
 
 	}
-  
-	@Test(groups = { "regression" })
-	public void readAcademyByID(){
-		IAcademyManager am = new AcademyManagerImpl();
-		Academy a = new Academy();
-		a.setAcademy_id("24");
-		List<Academy> academies = am.read(a);
-		assert(academies != null);
-		log.debug("getAcademyByID : " + academies.get(0).toString());
-	}
-
+	
 	
 	@Test(groups = { "regression" })
 	public void readAcademyByName(){
-		IAcademyManager am = new AcademyManagerImpl();
 		List<Academy> list = new ArrayList<Academy>();
-		list = am.read(new Academy("academy1"));
+		IAcademyManager am = new AcademyManagerImpl();
+		Academy a = new Academy("academy1");
+		am.create(a);
+		list = am.read(a);
 		assert(list != null);
 		assert(list.size() > 0);
 		for(Academy academy : list){
@@ -109,9 +102,11 @@ public class AcademyManagerTest  {
 	
 	@Test(groups = { "regression" })
 	public void readAcademyByTaxID(){
-		IAcademyManager am = new AcademyManagerImpl();
 		List<Academy> list = new ArrayList<Academy>();
-		list = am.read(new Academy(null, "tax_changed"));
+		IAcademyManager am = new AcademyManagerImpl();
+		Academy a = new Academy(null, "tax_changed");
+		am.create(a);
+		list = am.read(a);
 		assert(list != null);
 		assert(list.size() > 0);
 		for(Academy academy : list){
@@ -122,11 +117,10 @@ public class AcademyManagerTest  {
 	
 	@Test(groups = {"functional", "regression"})
 	public void deleteAcademy(){
-		IAcademyManager am = new AcademyManagerImpl();
 		String name = Rand.getRandomName();
 		String tax = Rand.getRandomTaxID();
-		
-		Academy academy = new Academy();
+		IAcademyManager am = new AcademyManagerImpl();
+		Academy academy = new Academy(name);
 		academy.setName(name);
 		academy.setTax_id(tax);
 		am.create(academy);

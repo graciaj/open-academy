@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -16,14 +17,13 @@ import com.roundrocklabs.test.academy.utils.Rand;
 public class AcademyDAOImplTest {
 
 	private static final Log log = LogFactory.getLog(AcademyManagerTest.class);
-
+	
 	@Test
 	public void createAcademyAcademy() {
 		log.info(Thread.currentThread().getStackTrace()[1].getMethodName());
 		Academy a = new Academy();
 		a.setName(Rand.getRandomName());
 		a.setTax_id(Rand.getRandomTaxID());
-
 		IAcademyDAO ad = new AcademyDAOImpl();
 		ad.create(a);
 		List<Academy> a2 = ad.read(a);
@@ -114,6 +114,6 @@ public class AcademyDAOImplTest {
 	
 	@BeforeMethod
 	public void setup(){
-		log.info("\n\n#########################################################################################");
+		log.info("\n\nAcademyDAOTest #########################################################################################");
 	}
 }

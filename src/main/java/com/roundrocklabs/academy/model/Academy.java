@@ -7,11 +7,13 @@ package com.roundrocklabs.academy.model;
 
 
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
 import org.hibernate.annotations.GenericGenerator;
 
 
@@ -71,11 +73,12 @@ public class Academy {
 	public void setSites(List<Site> sites) {
 		this.sites = sites;
 	}
-
+	
 	
 	public boolean equals(Academy a){
 		return (this.getAcademy_id().equals(a.getAcademy_id()) &&
 				this.getName().equals(a.getName()));
 	}
-	
+
+		
 }

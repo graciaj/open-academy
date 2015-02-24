@@ -2,18 +2,14 @@ package com.roundrocklabs.academy.manager.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.roundrocklabs.academy.dao.IAcademyDAO;
 import com.roundrocklabs.academy.dao.impl.AcademyDAOImpl;
 import com.roundrocklabs.academy.manager.IAcademyManager;
 import com.roundrocklabs.academy.model.Academy;
 
-
 public class AcademyManagerImpl implements IAcademyManager {
 	
-	@Autowired
-	private IAcademyDAO academyDAO;
+	private IAcademyDAO academyDAO = new AcademyDAOImpl();
 	
 	public void create(Academy a) {
 		academyDAO.create(a);

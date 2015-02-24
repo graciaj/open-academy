@@ -15,12 +15,8 @@ import javax.persistence.Persistence;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Query;
-import org.hibernate.Session;
-
 import com.roundrocklabs.academy.dao.IAcademyDAO;
 import com.roundrocklabs.academy.model.Academy;
-import com.roundrocklabs.academy.utils.HibernateUtil;
 
 
 public class AcademyDAOImpl implements IAcademyDAO {
