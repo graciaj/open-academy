@@ -11,8 +11,8 @@ public class SiteManagerImpl implements ISiteManager {
 
 	private ISiteDAO siteDAO = new SiteDAOImpl();
 
-	public Site create(Site site) {
-		return siteDAO.create(site);
+	public void create(Site site) {
+		siteDAO.create(site);
 	}
 
 	public List<Site> read(Site s) {

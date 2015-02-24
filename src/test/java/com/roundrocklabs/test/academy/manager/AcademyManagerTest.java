@@ -70,7 +70,7 @@ public class AcademyManagerTest  {
 		IAcademyManager am = new AcademyManagerImpl();
 		Academy academy = new Academy();
 		
-		academy.setAcademy_id(new Integer(28));
+		academy.setAcademy_id("28");
 		academy.setName("updated_by_testng");
 		academy.setTax_id("testng");
 		am.update(academy);
@@ -87,7 +87,7 @@ public class AcademyManagerTest  {
 	public void readAcademyByID(){
 		IAcademyManager am = new AcademyManagerImpl();
 		Academy a = new Academy();
-		a.setAcademy_id(24);
+		a.setAcademy_id("24");
 		List<Academy> academies = am.read(a);
 		assert(academies != null);
 		log.debug("getAcademyByID : " + academies.get(0).toString());
@@ -129,7 +129,7 @@ public class AcademyManagerTest  {
 		Academy academy = new Academy();
 		academy.setName(name);
 		academy.setTax_id(tax);
-		academy = am.create(academy);
+		am.create(academy);
 		
 		log.debug(academy.toString());
 		

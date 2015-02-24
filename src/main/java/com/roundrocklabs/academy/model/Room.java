@@ -21,7 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class Room {
 	
 	
-	String room_id;
+	Integer room_id;
 	String name;
 	String description;
 	Integer size;
@@ -31,12 +31,12 @@ public class Room {
 	@Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-	public String getRoom_id() {
+	public Integer getRoom_id() {
 		return room_id;
 	}
 
-	public void setRoom_id(String room_id) {
-		this.room_id = room_id;
+	public void setRoom_id(Integer id) {
+		this.room_id = id;
 	}
 
 	public String getName() {
