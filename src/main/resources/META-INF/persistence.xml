@@ -11,8 +11,9 @@
 		    <property name="hibernate.ogm.datastore.provider" value="mongodb" />
 		    <property name="hibernate.ogm.datastore.database" value="oa" />
 		    <property name="hibernate.ogm.datastore.host" value="localhost" />
-		    <property name="hibernate.ogm.datastore.username" value="oaAdmin" />
-		    <property name="hibernate.ogm.datastore.password" value="admin" />
+            <property name="hibernate.ogm.datastore.create_database" value="true" />
+		    <!--property name="hibernate.ogm.datastore.username" value="oaAdmin" />
+		    <property name="hibernate.ogm.datastore.password" value="admin" /-->
 		</properties>
     </persistence-unit>
 </persistence>
