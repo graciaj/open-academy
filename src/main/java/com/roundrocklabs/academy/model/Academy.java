@@ -83,4 +83,11 @@ public class Academy {
                 this.getName().equals(a.getName());
     }
 
+    @Override
+    public int hashCode() {
+        int result = academyId != null ? academyId.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (taxId != null ? taxId.hashCode() : 0);
+        return result;
+    }
 }
