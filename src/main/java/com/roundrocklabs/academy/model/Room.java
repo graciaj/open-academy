@@ -1,9 +1,3 @@
-/**
- * @author Lehi Gracia
- * @copyright 2014 Lehi Gracia
- */
-
-
 package com.roundrocklabs.academy.model;
 
 import java.sql.Date;

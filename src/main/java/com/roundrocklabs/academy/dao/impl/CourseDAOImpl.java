@@ -14,7 +14,7 @@ import com.roundrocklabs.academy.dao.ICourseDAO;
 import com.roundrocklabs.academy.model.Course;
 
 public class CourseDAOImpl implements ICourseDAO {
-	private static final Log log = LogFactory.getLog(CourseDAOImpl.class);
+	private static final Log LOG = LogFactory.getLog(CourseDAOImpl.class);
 	private static EntityManagerFactory entityManagerFactory = 
 			Persistence.createEntityManagerFactory("oaPu");
 	private static EntityManager entityManager;
@@ -27,7 +27,7 @@ public class CourseDAOImpl implements ICourseDAO {
 	 */
     @Override
 	public void create(Course course) {
-		log.debug("Course created from course: " + course.toString());
+		LOG.debug("Course created from course: " + course.toString());
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.persist(course);
@@ -100,7 +100,7 @@ public class CourseDAOImpl implements ICourseDAO {
         	entityManager.close();
         	
         	if(results == null || results.isEmpty()){
-        		return null;
+        		return new ArrayList<Course>();
         	}else{
         		return results;
         	}

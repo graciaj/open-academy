@@ -14,14 +14,14 @@ import com.roundrocklabs.academy.dao.ISiteDAO;
 import com.roundrocklabs.academy.model.Site;
 
 public class SiteDAOImpl implements ISiteDAO {
-	private static final Log log = LogFactory.getLog(SiteDAOImpl.class);
+	private static final Log LOG = LogFactory.getLog(SiteDAOImpl.class);
 	private static EntityManagerFactory entityManagerFactory = 
 			Persistence.createEntityManagerFactory("oaPu");
 	private static EntityManager entityManager;
 
     @Override
 	public void create(Site site) {
-		log.debug("site created from: " + site.toString());
+		LOG.debug("site created from: " + site.toString());
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.persist(site);
@@ -31,7 +31,7 @@ public class SiteDAOImpl implements ISiteDAO {
 
     @Override
 	public List<Site> read(Site s) {
-		log.debug("Reading a Site by id: " + s.toString());
+		LOG.debug("Reading a Site by id: " + s.toString());
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		
@@ -52,7 +52,7 @@ public class SiteDAOImpl implements ISiteDAO {
 			entityManager.getTransaction().commit();
 			entityManager.close();
 			if (results == null || results.isEmpty()) {
-				return null;
+				return new ArrayList<Site>();
 			} else {
 				return results;
 			}
@@ -62,7 +62,7 @@ public class SiteDAOImpl implements ISiteDAO {
 
     @Override
 	public void update(Site site) {
-		log.debug("updating site: " + site.toString());
+		LOG.debug("updating site: " + site.toString());
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		Site site2 = (Site) entityManager.find(Site.class, site.getSiteId());
@@ -98,7 +98,7 @@ public class SiteDAOImpl implements ISiteDAO {
 
     @Override
 	public void delete(Site site) {
-		log.debug("Deleting site: " + site.toString());
+		LOG.debug("Deleting site: " + site.toString());
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.remove(site);

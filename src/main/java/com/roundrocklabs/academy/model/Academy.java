@@ -1,8 +1,3 @@
-/**
- * @author Lehi Gracia
- * @copyright 2014 Lehi Gracia
- */
-
 package com.roundrocklabs.academy.model;
 
 
@@ -27,9 +22,9 @@ public class Academy {
 	private List<Site> sites;
 	
 	
-	public Academy(String name2, String tax_id2) {
+	public Academy(String name2, String taxId2) {
 		this.name = name2;
-		this.taxId = tax_id2;
+		this.taxId = taxId2;
 	}
 
 	public Academy(String name2) {
@@ -76,8 +71,8 @@ public class Academy {
 	
 
 	public boolean equals(Academy a){
-		return (this.getAcademyId().equals(a.getAcademyId()) &&
-				this.getName().equals(a.getName()));
+		return this.getAcademyId().equals(a.getAcademyId()) &&
+				this.getName().equals(a.getName());
 	}
 		
 }

@@ -1,9 +1,3 @@
-/**
- * @author Lehi Gracia
- * @copyright 2014 Lehi Gracia
- */
-
-
 package com.roundrocklabs.academy.dao.impl;
 
 import java.util.ArrayList;
@@ -20,12 +14,11 @@ import com.roundrocklabs.academy.model.Academy;
 
 
 public class AcademyDAOImpl implements IAcademyDAO {
-	private static final Log log = LogFactory.getLog(AcademyDAOImpl.class);
+	private static final Log LOG = LogFactory.getLog(AcademyDAOImpl.class);
 	private static EntityManagerFactory entityManagerFactory = 
 			Persistence.createEntityManagerFactory("oaPu");
 	private static EntityManager entityManager;
-	
-//	public AcademyDAOImpl(){}
+
 	/**
 	 * Saves the Academy object to the database
 	 * 
@@ -34,7 +27,7 @@ public class AcademyDAOImpl implements IAcademyDAO {
 	 */
     @Override
 	public void create(Academy academy) {
-		log.debug("academy created from academy: " + academy.toString());
+		LOG.debug("academy created from academy: " + academy.toString());
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.persist(academy);
@@ -77,13 +70,14 @@ public class AcademyDAOImpl implements IAcademyDAO {
 	 */
     @Override
 	public List<Academy> read(Academy academy) {
-		
+		ArrayList<Academy> l = new ArrayList<Academy>();
+
 		if (academy == null){
-			return null;
+			return l;
 		}
 		
 		if (academy.getAcademyId() == null && academy.getName() == null && academy.getTaxId() == null ){
-			return null;
+			return l;
 		}
 		
 		entityManager = entityManagerFactory.createEntityManager();
@@ -93,7 +87,7 @@ public class AcademyDAOImpl implements IAcademyDAO {
 			Academy la = entityManager.find(Academy.class, academy.getAcademyId());
 			entityManager.getTransaction().commit();
 			entityManager.close();
-			List<Academy> l = new ArrayList<Academy>();
+			l = new ArrayList<Academy>();
 			l.add(la);
 			return l;
 			

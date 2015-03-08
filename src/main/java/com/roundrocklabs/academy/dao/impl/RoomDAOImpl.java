@@ -1,5 +1,6 @@
 package com.roundrocklabs.academy.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,14 +16,14 @@ import com.roundrocklabs.academy.model.Room;
 import com.roundrocklabs.academy.utils.HibernateUtil;
 
 public class RoomDAOImpl implements IRoomDAO {
-	private static final Log log = LogFactory.getLog(RoomDAOImpl.class);
+	private static final Log LOG = LogFactory.getLog(RoomDAOImpl.class);
 	private static EntityManagerFactory entityManagerFactory = 
 			Persistence.createEntityManagerFactory("oaPu");
 	private static EntityManager entityManager;
 
     @Override
 	public void create(Room room) {
-		log.debug("room created from: " + room.toString());
+		LOG.debug("room created from: " + room.toString());
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.persist(room);
@@ -32,7 +33,7 @@ public class RoomDAOImpl implements IRoomDAO {
 
     @Override
 	public List<Room> read(Room r) {
-		log.debug("Reading a Room: " + r.toString());
+		LOG.debug("Reading a Room: " + r.toString());
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 
@@ -52,7 +53,7 @@ public class RoomDAOImpl implements IRoomDAO {
 			entityManager.close();
 
 			if (results == null || results.isEmpty()) {
-				return null;
+				return new ArrayList<Room>();
 			} else {
 				return results;
 			}
@@ -62,7 +63,7 @@ public class RoomDAOImpl implements IRoomDAO {
 
     @Override
 	public void update(Room room) {
-		log.debug("updating room: " + room.toString());
+		LOG.debug("updating room: " + room.toString());
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 
@@ -85,12 +86,12 @@ public class RoomDAOImpl implements IRoomDAO {
 
     @Override
 	public void delete(Room room) {
-		log.debug("Deleting room: " + room.toString());
+		LOG.debug("Deleting room: " + room.toString());
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 
-		Room db_room = (Room) session.load(Room.class, room.getRoomId());
-		session.delete(db_room);
+		Room dbRoom = (Room) session.load(Room.class, room.getRoomId());
+		session.delete(dbRoom);
 
 		session.getTransaction().commit();
 
