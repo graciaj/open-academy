@@ -7,20 +7,19 @@
 package com.roundrocklabs.academy.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 
 @Entity
 public class Staff extends Person {
 
-	Integer staff_id;
+	Integer staffId;
 	
 	
-	public Integer getStaff_id() {
-		return staff_id;
+	public Integer getStaffId() {
+		return staffId;
 	}
-	public void setStaff_id(Integer staff_id) {
-		this.staff_id = staff_id;
+	public void setStaffId(Integer staffId) {
+		this.staffId = staffId;
 	}
 	
 	

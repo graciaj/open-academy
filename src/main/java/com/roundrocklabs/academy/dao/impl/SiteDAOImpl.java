@@ -9,12 +9,9 @@ import javax.persistence.Persistence;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Query;
-import org.hibernate.Session;
 
 import com.roundrocklabs.academy.dao.ISiteDAO;
 import com.roundrocklabs.academy.model.Site;
-import com.roundrocklabs.academy.utils.HibernateUtil;
 
 public class SiteDAOImpl implements ISiteDAO {
 	private static final Log log = LogFactory.getLog(SiteDAOImpl.class);
@@ -36,8 +33,8 @@ public class SiteDAOImpl implements ISiteDAO {
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		
-		if (s.getSite_id() != null) {
-			Site s2 = entityManager.find(Site.class, s.getSite_id());
+		if (s.getSiteId() != null) {
+			Site s2 = entityManager.find(Site.class, s.getSiteId());
 			entityManager.getTransaction().commit();
 			entityManager.close();
 			List<Site> ls = new ArrayList<Site>();
@@ -66,7 +63,7 @@ public class SiteDAOImpl implements ISiteDAO {
 		log.debug("updating site: " + site.toString());
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
-		Site site2 = (Site) entityManager.find(Site.class, site.getSite_id());
+		Site site2 = (Site) entityManager.find(Site.class, site.getSiteId());
 
 		if (!(site == null) || !site.getName().isEmpty())
 			site2.setName(site.getName());

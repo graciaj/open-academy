@@ -7,29 +7,28 @@
 package com.roundrocklabs.academy.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 
 @Entity
 public class Student extends Person {
 	
-	Integer student_id;	
-	Integer parent_id;
+	Integer studentId;
+	Integer parentId;
 	
 	
-	public Integer getStudent_id() {
-		return student_id;
+	public Integer getStudentId() {
+		return studentId;
 	}
-	public void setStudent_id(Integer student_id) {
-		this.student_id = student_id;
+	public void setStudentId(Integer studentId) {
+		this.studentId = studentId;
 	}
 	
 	
-	public Integer getParent_id() {
-		return parent_id;
+	public Integer getParentId() {
+		return parentId;
 	}
-	public void setParent_id(Integer parent_id) {
-		this.parent_id = parent_id;
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 	
 }

@@ -14,11 +14,11 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public abstract class Person {
 	
-	String person_id;
-	String first_name;	
-	String middle_name;
-	String last_name;	
-	String last_name_2;
+	String personId;
+	String firstName;
+	String middleName;
+	String lastName;
+	String lastName2;
 	String address1;
 	String address2;
 	String city;
@@ -34,43 +34,43 @@ public abstract class Person {
 	@Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-	public String getPerson_id() {
-		return person_id;
+	public String getPersonId() {
+		return personId;
 	}
-	public void setPerson_id(String person_id) {
-		this.person_id = person_id;
-	}
-	
-	
-	public String getFirst_name() {
-		return first_name;
-	}
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+	public void setPersonId(String personId) {
+		this.personId = personId;
 	}
 	
 	
-	public String getMiddle_name() {
-		return middle_name;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setMiddle_name(String middle_name) {
-		this.middle_name = middle_name;
-	}
-	
-	
-	public String getLast_name() {
-		return last_name;
-	}
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 	
 	
-	public String getLast_name_2() {
-		return last_name_2;
+	public String getMiddleName() {
+		return middleName;
 	}
-	public void setLast_name_2(String last_name_2) {
-		this.last_name_2 = last_name_2;
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+	
+	
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	
+	public String getLastName2() {
+		return lastName2;
+	}
+	public void setLastName2(String lastName2) {
+		this.lastName2 = lastName2;
 	}
 	
 	

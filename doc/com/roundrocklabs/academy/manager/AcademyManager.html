@@ -155,7 +155,7 @@ extends java.lang.Object</pre>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.lang.Integer</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../com/roundrocklabs/academy/manager/AcademyManager.html#createAndStoreAcademy-java.lang.String-java.lang.String-">createAndStoreAcademy</a></span>(java.lang.String&nbsp;name,
-                     java.lang.String&nbsp;tax_id)</code>
+                     java.lang.String&nbsp;taxId)</code>
 <div class="block">Creates a new Academy object and saves it to the database</div>
 </td>
 </tr>
@@ -239,12 +239,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>createAndStoreAcademy</h4>
 <pre>public&nbsp;java.lang.Integer&nbsp;createAndStoreAcademy(java.lang.String&nbsp;name,
-                                               java.lang.String&nbsp;tax_id)</pre>
+                                               java.lang.String&nbsp;taxId)</pre>
 <div class="block">Creates a new Academy object and saves it to the database</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>name</code> - Name of the academy</dd>
-<dd><code>tax_id</code> - Tax id of the academy if included</dd>
+<dd><code>taxId</code> - Tax id of the academy if included</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Academy id as stored in the database</dd>
 </dl>
@@ -277,7 +277,7 @@ extends java.lang.Object</pre>
      If the information is null or empty the field will not be updated</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>academy</code> - Academy object to change. The academy_id must be the one that needs
+<dd><code>academy</code> - Academy object to change. The academyId must be the one that needs
                                                 to be changed and it must exist in the database</dd>
 </dl>
 </li>

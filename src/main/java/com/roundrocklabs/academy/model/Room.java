@@ -8,12 +8,9 @@ package com.roundrocklabs.academy.model;
 
 import java.sql.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -21,22 +18,22 @@ import org.hibernate.annotations.GenericGenerator;
 public class Room {
 	
 	
-	String room_id;
+	String roomId;
 	String name;
 	String description;
 	Integer size;
-	Date start_date;
-	Date retire_date;
+	Date startDate;
+	Date retireDate;
 	
 	@Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-	public String getRoom_id() {
-		return room_id;
+	public String getRoomId() {
+		return roomId;
 	}
 
-	public void setRoom_id(String id) {
-		this.room_id = id;
+	public void setRoomId(String id) {
+		this.roomId = id;
 	}
 
 	public String getName() {
@@ -63,20 +60,20 @@ public class Room {
 		this.size = size;
 	}
 
-	public Date getStart_date() {
-		return start_date;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setStart_date(Date start_date) {
-		this.start_date = start_date;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
-	public Date getRetire_date() {
-		return retire_date;
+	public Date getRetireDate() {
+		return retireDate;
 	}
 
-	public void setRetire_date(Date retire_date) {
-		this.retire_date = retire_date;
+	public void setRetireDate(Date retireDate) {
+		this.retireDate = retireDate;
 	}
 	
 

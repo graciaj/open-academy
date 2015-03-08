@@ -21,15 +21,15 @@ import org.hibernate.annotations.GenericGenerator;
 public class Academy {
 
 	
-	private String academy_id;
+	private String academyId;
 	String name;
-	String tax_id;
+	String taxId;
 	private List<Site> sites;
 	
 	
 	public Academy(String name2, String tax_id2) {
 		this.name = name2;
-		this.tax_id = tax_id2;
+		this.taxId = tax_id2;
 	}
 
 	public Academy(String name2) {
@@ -42,11 +42,11 @@ public class Academy {
 	@Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-	public String getAcademy_id() {
-		return academy_id;
+	public String getAcademyId() {
+		return academyId;
 	}
-	public void setAcademy_id(String academy_id) {
-		this.academy_id = academy_id;
+	public void setAcademyId(String academyId) {
+		this.academyId = academyId;
 	}
 	
 
@@ -58,11 +58,11 @@ public class Academy {
 	}
 	
 	
-	public String getTax_id() {
-		return tax_id;
+	public String getTaxId() {
+		return taxId;
 	}
-	public void setTax_id(String tax_id) {
-		this.tax_id = tax_id;
+	public void setTaxId(String taxId) {
+		this.taxId = taxId;
 	}
 	
 
@@ -74,9 +74,9 @@ public class Academy {
 		this.sites = sites;
 	}
 	
-	
+
 	public boolean equals(Academy a){
-		return (this.getAcademy_id().equals(a.getAcademy_id()) &&
+		return (this.getAcademyId().equals(a.getAcademyId()) &&
 				this.getName().equals(a.getName()));
 	}
 		

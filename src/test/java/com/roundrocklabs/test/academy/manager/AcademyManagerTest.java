@@ -34,7 +34,7 @@ public class AcademyManagerTest  {
 		log.debug("createAcademyByNameTax : " + savedAcademy.toString());
 		
 		for(Academy ac : savedAcademy){
-			if(ac.getName().equals(academy.getName()) || ac.getTax_id().equals(academy.getTax_id())){
+			if(ac.getName().equals(academy.getName()) || ac.getTaxId().equals(academy.getTaxId())){
 				assert(true);
 				return;
 			}
@@ -53,7 +53,7 @@ public class AcademyManagerTest  {
 		List<Academy> savedAcademy = am.read(academy);
 		log.debug("createAcademyByName : " + savedAcademy.toString());
 		for(Academy ac : savedAcademy){
-			if(ac.getName().equals(academy.getName()) || ac.getTax_id().equals(academy.getTax_id())){
+			if(ac.getName().equals(academy.getName()) || ac.getTaxId().equals(academy.getTaxId())){
 				assert(true);
 				return;
 			}
@@ -67,21 +67,21 @@ public class AcademyManagerTest  {
 		Academy academy = new Academy();
 		IAcademyManager am = new AcademyManagerImpl();		
 		academy.setName("updated_by_testng");
-		academy.setTax_id("testng");
+		academy.setTaxId("testng");
 		am.create(academy);
 
 		List<Academy> savedAcademy = am.read(academy);
 		assert(academy.equals(savedAcademy.get(0)));
 		
 		savedAcademy.get(0).setName("second update");
-		savedAcademy.get(0).setTax_id("second testng");
+		savedAcademy.get(0).setTaxId("second testng");
 		am.update(savedAcademy.get(0));
 		
 		List<Academy> secondList = am.read(savedAcademy.get(0));
 		
-		log.debug("updateAcademy : original : " + academy.getName() + ":" + academy.getAcademy_id());
-		log.debug("updateAcademy: saved: " + savedAcademy.get(0).getName() + ":" + savedAcademy.get(0).getAcademy_id() );
-		log.debug("updateAcademy : second : " + secondList.get(0).getName() + ":" + secondList.get(0).getAcademy_id());
+		log.debug("updateAcademy : original : " + academy.getName() + ":" + academy.getAcademyId());
+		log.debug("updateAcademy: saved: " + savedAcademy.get(0).getName() + ":" + savedAcademy.get(0).getAcademyId() );
+		log.debug("updateAcademy : second : " + secondList.get(0).getName() + ":" + secondList.get(0).getAcademyId());
 
 	}
 	
@@ -123,7 +123,7 @@ public class AcademyManagerTest  {
 		IAcademyManager am = new AcademyManagerImpl();
 		Academy academy = new Academy(name);
 		academy.setName(name);
-		academy.setTax_id(tax);
+		academy.setTaxId(tax);
 		am.create(academy);
 		
 		log.debug(academy.toString());

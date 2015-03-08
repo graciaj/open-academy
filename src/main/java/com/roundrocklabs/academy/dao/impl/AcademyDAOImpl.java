@@ -53,13 +53,13 @@ public class AcademyDAOImpl implements IAcademyDAO {
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
     	
-    	Academy academy2 = (Academy) entityManager.find(Academy.class, academy.getAcademy_id());
+    	Academy academy2 = (Academy) entityManager.find(Academy.class, academy.getAcademyId());
     	
     	if(!academy.getName().isEmpty() || !(academy == null))
     		academy2.setName( academy.getName() );
     	
-    	if(!academy.getTax_id().isEmpty() || !(academy.getTax_id() == null))
-    		academy2.setTax_id(academy.getTax_id());
+    	if(!academy.getTaxId().isEmpty() || !(academy.getTaxId() == null))
+    		academy2.setTaxId(academy.getTaxId());
     	
     	entityManager.getTransaction().commit();
     	entityManager.close();
@@ -69,25 +69,25 @@ public class AcademyDAOImpl implements IAcademyDAO {
     /**
 	 * Finds an Academy in the database using id, or name, or tax_id
 	 * 
-	 * @param Academy
+	 * @param academy
 	 * 
 	 * @return list of academies
 	 */
-	public List<Academy> read(Academy a) {
+	public List<Academy> read(Academy academy) {
 		
-		if (a == null){
+		if (academy == null){
 			return null;
 		}
 		
-		if (a.getAcademy_id() == null && a.getName() == null && a.getTax_id() == null ){
+		if (academy.getAcademyId() == null && academy.getName() == null && academy.getTaxId() == null ){
 			return null;
 		}
 		
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
     
-		if (a.getAcademy_id() != null) {
-			Academy la = entityManager.find(Academy.class, a.getAcademy_id());
+		if (academy.getAcademyId() != null) {
+			Academy la = entityManager.find(Academy.class, academy.getAcademyId());
 			entityManager.getTransaction().commit();
 			entityManager.close();
 			List<Academy> l = new ArrayList<Academy>();
@@ -95,10 +95,10 @@ public class AcademyDAOImpl implements IAcademyDAO {
 			return l;
 			
 		} else {
-			List<Academy> results = (List<Academy>) entityManager.find(Academy.class, a.getName());
+			List<Academy> results = (List<Academy>) entityManager.find(Academy.class, academy.getName());
 
 			if (results == null || results.isEmpty()) {
-				results = (List<Academy>) entityManager.find(Academy.class, a.getTax_id());
+				results = (List<Academy>) entityManager.find(Academy.class, academy.getTaxId());
 			}
 			entityManager.getTransaction().commit();
 			entityManager.close();

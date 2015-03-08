@@ -7,13 +7,9 @@
 package com.roundrocklabs.academy.model;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,7 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class Site {
 
 	Academy academy;
-	String site_id;
+	String siteId;
 	String name;
 	String description;
 	String address1;
@@ -44,11 +40,11 @@ public class Site {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-	public String getSite_id() {
-		return site_id;
+	public String getSiteId() {
+		return siteId;
 	}
-	public void setSite_id(String site_id) {
-		this.site_id = site_id;
+	public void setSiteId(String siteId) {
+		this.siteId = siteId;
 	}	
 
 	

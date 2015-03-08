@@ -8,7 +8,6 @@ import javax.persistence.Persistence;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.roundrocklabs.academy.dao.IRoomDAO;
@@ -35,8 +34,8 @@ public class RoomDAOImpl implements IRoomDAO {
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 
-		if (r.getRoom_id() != null) {
-			List<Room> rooms = (List<Room>) entityManager.find(Room.class, r.getRoom_id());
+		if (r.getRoomId() != null) {
+			List<Room> rooms = (List<Room>) entityManager.find(Room.class, r.getRoomId());
 			entityManager.getTransaction().commit();
 			entityManager.close();
 			return rooms;
@@ -65,7 +64,7 @@ public class RoomDAOImpl implements IRoomDAO {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 
-		Room room2 = (Room) session.load(Room.class, room.getRoom_id());
+		Room room2 = (Room) session.load(Room.class, room.getRoomId());
 
 		if (!room.getName().isEmpty() || !(room == null))
 			room2.setName(room.getName());
@@ -73,11 +72,11 @@ public class RoomDAOImpl implements IRoomDAO {
 		if (!room.getDescription().isEmpty() || !(room.getDescription() == null))
 			room2.setDescription(room.getDescription());
 
-		if (!(room.getStart_date() == null))
-			room2.setStart_date(room.getStart_date());
+		if (!(room.getStartDate() == null))
+			room2.setStartDate(room.getStartDate());
 
-		if (!(room.getRetire_date() == null))
-			room2.setRetire_date(room.getRetire_date());
+		if (!(room.getRetireDate() == null))
+			room2.setRetireDate(room.getRetireDate());
 
 		session.getTransaction().commit();
 	}
@@ -88,7 +87,7 @@ public class RoomDAOImpl implements IRoomDAO {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 
-		Room db_room = (Room) session.load(Room.class, room.getRoom_id());
+		Room db_room = (Room) session.load(Room.class, room.getRoomId());
 		session.delete(db_room);
 
 		session.getTransaction().commit();

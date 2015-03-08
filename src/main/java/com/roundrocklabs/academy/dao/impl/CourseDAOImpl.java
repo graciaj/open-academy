@@ -9,12 +9,9 @@ import javax.persistence.Persistence;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Query;
-import org.hibernate.Session;
 
 import com.roundrocklabs.academy.dao.ICourseDAO;
 import com.roundrocklabs.academy.model.Course;
-import com.roundrocklabs.academy.utils.HibernateUtil;
 
 public class CourseDAOImpl implements ICourseDAO {
 	private static final Log log = LogFactory.getLog(CourseDAOImpl.class);
@@ -47,7 +44,7 @@ public class CourseDAOImpl implements ICourseDAO {
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		
-		Course course2 = (Course) entityManager.find(Course.class, course.getCourse_id());
+		Course course2 = (Course) entityManager.find(Course.class, course.getCourseId());
 		
 		if( !course.getName().isEmpty() || !(course.getName() == null) ){
 			course2.setName(course.getName());
@@ -57,12 +54,12 @@ public class CourseDAOImpl implements ICourseDAO {
 			course2.setDescription(course.getDescription());
 		}
 		
-		if( !(course.getStart_date() == null) ){
-			course2.setStart_date(course.getStart_date());
+		if( !(course.getStartDate() == null) ){
+			course2.setStartDate(course.getStartDate());
 		}
 		
-		if( !(course.getRetire_date() == null) ){
-			course2.setRetire_date(course.getRetire_date());
+		if( !(course.getRetireDate() == null) ){
+			course2.setRetireDate(course.getRetireDate());
 		}
 		
 		entityManager.getTransaction().commit();
@@ -73,7 +70,7 @@ public class CourseDAOImpl implements ICourseDAO {
 	/**
 	 * Finds the courses that match the partial string
 	 * 
-	 * @param name or partial
+	 * @param course or partial
 	 * @return List of courses that match the string or null if none found
 	 */
 	@SuppressWarnings("unchecked")
@@ -81,8 +78,8 @@ public class CourseDAOImpl implements ICourseDAO {
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 
-		if (course.getCourse_id() != null) {
-    		Course c = (Course) entityManager.find(Course.class, course.getCourse_id());
+		if (course.getCourseId() != null) {
+    		Course c = (Course) entityManager.find(Course.class, course.getCourseId());
     		entityManager.getTransaction().commit();
     		entityManager.close();
 			List<Course> cl = new ArrayList<Course>();
@@ -112,7 +109,7 @@ public class CourseDAOImpl implements ICourseDAO {
 	/**
 	 * Deletes the course
 	 * 
-	 * @param object to delete
+	 * @param course to delete
 	 */
 	public void delete(Course course) {
 		entityManager = entityManagerFactory.createEntityManager();
