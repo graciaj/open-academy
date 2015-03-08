@@ -70,7 +70,15 @@ public class Academy {
     }
 
     @Override
-    public boolean equals(Academy a){
+    public boolean equals(Object obj){
+
+        if (!(obj instanceof Person))
+            return false;
+        if (obj == this)
+            return true;
+
+        Academy a = (Academy) obj;
+
         return this.getAcademyId().equals(a.getAcademyId()) &&
                 this.getName().equals(a.getName());
     }
