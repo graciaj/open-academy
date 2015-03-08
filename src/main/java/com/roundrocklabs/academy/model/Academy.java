@@ -72,7 +72,7 @@ public class Academy {
     @Override
     public boolean equals(Object obj){
 
-        if (!(obj instanceof Person))
+        if (!(obj instanceof Academy))
             return false;
         if (obj == this)
             return true;
