@@ -25,6 +25,7 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * @param course to create
 	 * @return 	Course id, as stored in the database
 	 */
+    @Override
 	public void create(Course course) {
 		log.debug("Course created from course: " + course.toString());
 		entityManager = entityManagerFactory.createEntityManager();
@@ -40,6 +41,7 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * 
 	 * @param course object
 	 */
+    @Override
 	public void update(Course course) {
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
@@ -74,6 +76,7 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * @return List of courses that match the string or null if none found
 	 */
 	@SuppressWarnings("unchecked")
+    @Override
 	public List<Course> read(Course course) {
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
@@ -111,6 +114,7 @@ public class CourseDAOImpl implements ICourseDAO {
 	 * 
 	 * @param course to delete
 	 */
+    @Override
 	public void delete(Course course) {
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();

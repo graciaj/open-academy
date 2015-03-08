@@ -19,7 +19,8 @@ public class RoomDAOImpl implements IRoomDAO {
 	private static EntityManagerFactory entityManagerFactory = 
 			Persistence.createEntityManagerFactory("oaPu");
 	private static EntityManager entityManager;
-	
+
+    @Override
 	public void create(Room room) {
 		log.debug("room created from: " + room.toString());
 		entityManager = entityManagerFactory.createEntityManager();
@@ -29,6 +30,7 @@ public class RoomDAOImpl implements IRoomDAO {
 		entityManager.close();
 	}
 
+    @Override
 	public List<Room> read(Room r) {
 		log.debug("Reading a Room: " + r.toString());
 		entityManager = entityManagerFactory.createEntityManager();
@@ -58,7 +60,7 @@ public class RoomDAOImpl implements IRoomDAO {
 
 	}
 
-	
+    @Override
 	public void update(Room room) {
 		log.debug("updating room: " + room.toString());
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -81,7 +83,7 @@ public class RoomDAOImpl implements IRoomDAO {
 		session.getTransaction().commit();
 	}
 
-
+    @Override
 	public void delete(Room room) {
 		log.debug("Deleting room: " + room.toString());
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();

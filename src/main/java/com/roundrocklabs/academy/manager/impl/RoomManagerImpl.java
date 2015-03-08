@@ -11,18 +11,22 @@ public class RoomManagerImpl implements IRoomManager {
 
 	private IRoomDAO roomDAO = new RoomDAOImpl();
 
+    @Override
 	public void create(Room r) {
 		roomDAO.create(r);
 	}
 
+    @Override
 	public List<Room> read(Room r) {
 		return roomDAO.read(r);
 	}
 
+    @Override
 	public void update(Room r) {
 		roomDAO.update(r);
 	}
 
+    @Override
 	public void delete(Room r) {
 		roomDAO.delete(r);
 	}

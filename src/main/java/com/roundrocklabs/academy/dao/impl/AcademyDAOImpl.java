@@ -32,6 +32,7 @@ public class AcademyDAOImpl implements IAcademyDAO {
 	 * @param academy	Academy object to create
 	 * 
 	 */
+    @Override
 	public void create(Academy academy) {
 		log.debug("academy created from academy: " + academy.toString());
 		entityManager = entityManagerFactory.createEntityManager();
@@ -49,6 +50,7 @@ public class AcademyDAOImpl implements IAcademyDAO {
      * @param academy	Academy object to change. The academy_id must be the one that needs
      * 						to be changed and it must exist in the database
      */
+    @Override
 	public void update(Academy academy){
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
@@ -73,6 +75,7 @@ public class AcademyDAOImpl implements IAcademyDAO {
 	 * 
 	 * @return list of academies
 	 */
+    @Override
 	public List<Academy> read(Academy academy) {
 		
 		if (academy == null){
@@ -117,6 +120,7 @@ public class AcademyDAOImpl implements IAcademyDAO {
      * 
      * @param academy to delete
      */
+    @Override
 	public void delete(Academy academy){
 		entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();

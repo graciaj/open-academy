@@ -18,7 +18,8 @@ public class SiteDAOImpl implements ISiteDAO {
 	private static EntityManagerFactory entityManagerFactory = 
 			Persistence.createEntityManagerFactory("oaPu");
 	private static EntityManager entityManager;
-	
+
+    @Override
 	public void create(Site site) {
 		log.debug("site created from: " + site.toString());
 		entityManager = entityManagerFactory.createEntityManager();
@@ -28,6 +29,7 @@ public class SiteDAOImpl implements ISiteDAO {
 		entityManager.close();
 	}
 
+    @Override
 	public List<Site> read(Site s) {
 		log.debug("Reading a Site by id: " + s.toString());
 		entityManager = entityManagerFactory.createEntityManager();
@@ -58,7 +60,7 @@ public class SiteDAOImpl implements ISiteDAO {
 
 	}
 
-
+    @Override
 	public void update(Site site) {
 		log.debug("updating site: " + site.toString());
 		entityManager = entityManagerFactory.createEntityManager();
@@ -94,6 +96,7 @@ public class SiteDAOImpl implements ISiteDAO {
 
 	}
 
+    @Override
 	public void delete(Site site) {
 		log.debug("Deleting site: " + site.toString());
 		entityManager = entityManagerFactory.createEntityManager();
