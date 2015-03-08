@@ -5,15 +5,15 @@ import javax.persistence.Entity;
 
 @Entity
 public class Teacher extends Person {
-	
-	Integer teacherId;
-	
-	
-	public Integer getTeacherId() {
-		return teacherId;
-	}
-	public void setTeacherId(Integer teacherId) {
-		this.teacherId = teacherId;
-	}
+
+    Integer teacherId;
+
+
+    public Integer getTeacherId() {
+        return teacherId;
+    }
+    public void setTeacherId(Integer teacherId) {
+        this.teacherId = teacherId;
+    }
 
 }

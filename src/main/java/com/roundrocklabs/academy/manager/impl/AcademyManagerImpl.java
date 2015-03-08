@@ -9,26 +9,26 @@ import com.roundrocklabs.academy.model.Academy;
 
 public class AcademyManagerImpl implements IAcademyManager {
 
-	private IAcademyDAO academyDAO = new AcademyDAOImpl();
+    private IAcademyDAO academyDAO = new AcademyDAOImpl();
 
     @Override
-	public void create(Academy a) {
-		academyDAO.create(a);
-	}
+    public void create(Academy a) {
+        academyDAO.create(a);
+    }
 
     @Override
-	public void update(Academy a) {
-		academyDAO.update(a);
-	}
+    public void update(Academy a) {
+        academyDAO.update(a);
+    }
 
     @Override
-	public List<Academy> read(Academy a) {
-		return academyDAO.read(a);
-	}
+    public List<Academy> read(Academy a) {
+        return academyDAO.read(a);
+    }
 
     @Override
-	public void delete(Academy academy){
-		academyDAO.delete(academy);
-	}
-	
+    public void delete(Academy academy){
+        academyDAO.delete(academy);
+    }
+
 }

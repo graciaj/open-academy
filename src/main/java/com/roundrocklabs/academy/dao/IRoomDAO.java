@@ -6,12 +6,12 @@ import com.roundrocklabs.academy.model.Room;
 
 public interface IRoomDAO {
 
-	public void create(Room a);
-	
-	public void update(Room a);
-	
-	public List<Room> read(Room a);
-	
-	public void delete(Room a);
-	
+    public void create(Room a);
+
+    public void update(Room a);
+
+    public List<Room> read(Room a);
+
+    public void delete(Room a);
+
 }
