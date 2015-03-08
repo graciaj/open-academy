@@ -9,11 +9,10 @@ import javax.persistence.Persistence;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Session;
 
 import com.roundrocklabs.academy.dao.IRoomDAO;
 import com.roundrocklabs.academy.model.Room;
-import com.roundrocklabs.academy.utils.HibernateUtil;
+
 
 public class RoomDAOImpl implements IRoomDAO {
     private static final Log LOG = LogFactory.getLog(RoomDAOImpl.class);
@@ -64,10 +63,10 @@ public class RoomDAOImpl implements IRoomDAO {
     @Override
     public void update(Room room) {
         LOG.debug("updating room: " + room.toString());
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
 
-        Room room2 = (Room) session.load(Room.class, room.getRoomId());
+        Room room2 = (Room) entityManager.find(Room.class, room.getRoomId());
 
         if (!room.getName().isEmpty() || !(room == null))
             room2.setName(room.getName());
@@ -81,20 +80,18 @@ public class RoomDAOImpl implements IRoomDAO {
         if (!(room.getRetireDate() == null))
             room2.setRetireDate(room.getRetireDate());
 
-        session.getTransaction().commit();
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @Override
     public void delete(Room room) {
         LOG.debug("Deleting room: " + room.toString());
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-
-        Room dbRoom = (Room) session.load(Room.class, room.getRoomId());
-        session.delete(dbRoom);
-
-        session.getTransaction().commit();
-
+        entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.remove(entityManager.contains(room) ? room : entityManager.merge(room));
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
 }
