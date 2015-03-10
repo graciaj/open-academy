@@ -1,3 +1,3 @@
 open-academy
 ============
-testin
+testing
